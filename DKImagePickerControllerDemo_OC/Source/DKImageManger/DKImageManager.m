@@ -139,5 +139,27 @@
 }
 
 
+- (void)fetchAVAsset:(DKAsset *)asset
+       completeBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock{
+}
+
+
+- (void)fetchAVAsset:(DKAsset *)asset
+             options:(PHVideoRequestOptions *)options
+completeBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock
+{
+    if (!options) {
+        options = self.defaultVideoRequestOptions.copy;
+    }
+    [self.manager requestAVAssetForVideo:asset.originalAsset options:options resultHandler:^(AVAsset * _Nullable avAsset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+        BOOL isInCloud = [info[PHImageResultIsInCloudKey] boolValue];
+        if (isInCloud && !asset && self.autoDownloadWhenAssetIsInCloud) {
+            options.networkAccessAllowed = YES;
+            [self fetchAVAsset:asset options:options completeBlock:completeBlock];
+        }else{
+            completeBlock(avAsset, info);
+        }
+    }];
+}
 
 @end
