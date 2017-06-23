@@ -15,6 +15,10 @@
 		98881AE81EFCE90D008B9B13 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98881AE61EFCE90D008B9B13 /* LaunchScreen.storyboard */; };
 		98881AF31EFCE90D008B9B13 /* DKImagePickerControllerDemo_OCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881AF21EFCE90D008B9B13 /* DKImagePickerControllerDemo_OCTests.m */; };
 		98881AFE1EFCE90D008B9B13 /* DKImagePickerControllerDemo_OCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881AFD1EFCE90D008B9B13 /* DKImagePickerControllerDemo_OCUITests.m */; };
+		98881B0D1EFCF0C0008B9B13 /* DKImagePickerControllerDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881B0C1EFCF0C0008B9B13 /* DKImagePickerControllerDemoVC.m */; };
+		98881B141EFCF324008B9B13 /* DKImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881B131EFCF324008B9B13 /* DKImageManager.m */; };
+		98881B171EFCFD91008B9B13 /* DKGroupDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881B161EFCFD91008B9B13 /* DKGroupDataManager.m */; };
+		98881B1A1EFCFDDE008B9B13 /* DKAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881B191EFCFDDE008B9B13 /* DKAsset.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,14 @@
 		98881AF91EFCE90D008B9B13 /* DKImagePickerControllerDemo_OCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DKImagePickerControllerDemo_OCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98881AFD1EFCE90D008B9B13 /* DKImagePickerControllerDemo_OCUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DKImagePickerControllerDemo_OCUITests.m; sourceTree = "<group>"; };
 		98881AFF1EFCE90D008B9B13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98881B0B1EFCF0C0008B9B13 /* DKImagePickerControllerDemoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKImagePickerControllerDemoVC.h; sourceTree = "<group>"; };
+		98881B0C1EFCF0C0008B9B13 /* DKImagePickerControllerDemoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKImagePickerControllerDemoVC.m; sourceTree = "<group>"; };
+		98881B121EFCF324008B9B13 /* DKImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKImageManager.h; sourceTree = "<group>"; };
+		98881B131EFCF324008B9B13 /* DKImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKImageManager.m; sourceTree = "<group>"; };
+		98881B151EFCFD91008B9B13 /* DKGroupDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKGroupDataManager.h; sourceTree = "<group>"; };
+		98881B161EFCFD91008B9B13 /* DKGroupDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKGroupDataManager.m; sourceTree = "<group>"; };
+		98881B181EFCFDDE008B9B13 /* DKAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAsset.h; sourceTree = "<group>"; };
+		98881B191EFCFDDE008B9B13 /* DKAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAsset.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +113,11 @@
 		98881AD71EFCE90D008B9B13 /* DKImagePickerControllerDemo_OC */ = {
 			isa = PBXGroup;
 			children = (
+				98881B0E1EFCF2E2008B9B13 /* Source */,
 				98881ADB1EFCE90D008B9B13 /* AppDelegate.h */,
 				98881ADC1EFCE90D008B9B13 /* AppDelegate.m */,
+				98881B0B1EFCF0C0008B9B13 /* DKImagePickerControllerDemoVC.h */,
+				98881B0C1EFCF0C0008B9B13 /* DKImagePickerControllerDemoVC.m */,
 				98881ADE1EFCE90D008B9B13 /* ViewController.h */,
 				98881ADF1EFCE90D008B9B13 /* ViewController.m */,
 				98881AE11EFCE90D008B9B13 /* Main.storyboard */,
@@ -138,6 +153,43 @@
 				98881AFF1EFCE90D008B9B13 /* Info.plist */,
 			);
 			path = DKImagePickerControllerDemo_OCUITests;
+			sourceTree = "<group>";
+		};
+		98881B0E1EFCF2E2008B9B13 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				98881B0F1EFCF2E2008B9B13 /* DKImageManger */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		98881B0F1EFCF2E2008B9B13 /* DKImageManger */ = {
+			isa = PBXGroup;
+			children = (
+				98881B121EFCF324008B9B13 /* DKImageManager.h */,
+				98881B131EFCF324008B9B13 /* DKImageManager.m */,
+				98881B101EFCF2E2008B9B13 /* Data */,
+			);
+			path = DKImageManger;
+			sourceTree = "<group>";
+		};
+		98881B101EFCF2E2008B9B13 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				98881B151EFCFD91008B9B13 /* DKGroupDataManager.h */,
+				98881B161EFCFD91008B9B13 /* DKGroupDataManager.m */,
+				98881B111EFCF2E2008B9B13 /* Model */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		98881B111EFCF2E2008B9B13 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				98881B181EFCFDDE008B9B13 /* DKAsset.h */,
+				98881B191EFCFDDE008B9B13 /* DKAsset.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,7 +325,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98881B0D1EFCF0C0008B9B13 /* DKImagePickerControllerDemoVC.m in Sources */,
 				98881AE01EFCE90D008B9B13 /* ViewController.m in Sources */,
+				98881B1A1EFCFDDE008B9B13 /* DKAsset.m in Sources */,
+				98881B171EFCFD91008B9B13 /* DKGroupDataManager.m in Sources */,
+				98881B141EFCF324008B9B13 /* DKImageManager.m in Sources */,
 				98881ADD1EFCE90D008B9B13 /* AppDelegate.m in Sources */,
 				98881ADA1EFCE90D008B9B13 /* main.m in Sources */,
 			);
