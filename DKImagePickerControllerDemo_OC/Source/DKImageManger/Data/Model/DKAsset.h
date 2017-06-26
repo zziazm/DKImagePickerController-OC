@@ -49,4 +49,13 @@
  */
 - (void)fetchImageDataForAssetIsSynchronous:(BOOL)isSynchronous
                               completeBlock:(void(^)(NSData  * imageData, NSDictionary * info))completeBlock;
+
+- (void)fetchAVAsset:(PHVideoRequestOptions *)options
+       completeBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock;
+
+- (void)fetchAVAssetWithCompleteBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock;
+
+- (void)fetchAVAssetIsSynchronous:(BOOL)IsSynchronous
+                          options:(PHVideoRequestOptions *)options
+                    completeBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock;
 @end

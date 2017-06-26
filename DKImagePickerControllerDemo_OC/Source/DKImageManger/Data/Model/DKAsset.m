@@ -93,6 +93,32 @@
 }
 
 
+- (void)fetchAVAsset:(PHVideoRequestOptions *)options
+       completeBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock
+{
+    [[DKImageManager shareInstance] fetchAVAsset:self options:options completeBlock:completeBlock];
+}
+
+- (void)fetchAVAssetWithCompleteBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock{
+    [self fetchAVAsset:nil completeBlock:completeBlock];
+}
+
+- (void)fetchAVAssetIsSynchronous:(BOOL)IsSynchronous
+             options:(PHVideoRequestOptions *)options
+       completeBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock
+{
+    if (IsSynchronous) {
+       dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+       
+       [self fetchAVAsset:options completeBlock:^(AVAsset *avAsset, NSDictionary *info) {
+           completeBlock(avAsset, info);
+           dispatch_semaphore_signal(sem);
+       }];
+       dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+    }else{
+        [self fetchAVAsset:options completeBlock:completeBlock];
+    }
+}
 
 
 @end

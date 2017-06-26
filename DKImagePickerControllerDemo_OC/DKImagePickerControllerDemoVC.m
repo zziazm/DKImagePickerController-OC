@@ -7,7 +7,7 @@
 //
 
 #import "DKImagePickerControllerDemoVC.h"
-
+#import "ViewController.h"
 @interface DKImagePickerControllerDemoVC ()
 
 @end
@@ -92,6 +92,15 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    UITableViewCell * cell = (UITableViewCell *)sender;
+    ViewController * vc = (ViewController *)segue.destinationViewController;
+    vc.title= cell.textLabel.text;
+    if ([segue.identifier isEqualToString:@"Pick All"]) {
+        
+    }
+    
+    
 }
 
 

@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		980185DB1F00B56D0099173C /* DKAssetGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185DA1F00B56D0099173C /* DKAssetGroup.m */; };
+		980185E11F00BA8B0099173C /* DKImageResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185E01F00BA8B0099173C /* DKImageResource.m */; };
+		980185E71F00E3E70099173C /* DKCameraResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 980185E61F00E3E70099173C /* DKCameraResource.bundle */; };
+		980185E91F00E4880099173C /* DKImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 980185E81F00E4880099173C /* DKImagePickerController.bundle */; };
+		980185ED1F00E5F00099173C /* DKAssetGroupDetailBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185EC1F00E5F00099173C /* DKAssetGroupDetailBaseCell.m */; };
+		980185F01F00E8170099173C /* DKAssetGroupDetailCameraCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185EF1F00E8170099173C /* DKAssetGroupDetailCameraCell.m */; };
+		980185F31F00E9A80099173C /* DKAssetGroupDetailImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185F21F00E9A80099173C /* DKAssetGroupDetailImageCell.m */; };
+		980185F61F00EF090099173C /* DKAssetGroupDetailVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185F51F00EF090099173C /* DKAssetGroupDetailVideoCell.m */; };
+		980185F91F00F89A0099173C /* DKAssetGroupGridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185F81F00F89A0099173C /* DKAssetGroupGridLayout.m */; };
+		980185FC1F0101010099173C /* DKImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185FB1F0101010099173C /* DKImagePickerController.m */; };
+		980185FF1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185FE1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m */; };
 		98881ADA1EFCE90D008B9B13 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881AD91EFCE90D008B9B13 /* main.m */; };
 		98881ADD1EFCE90D008B9B13 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881ADC1EFCE90D008B9B13 /* AppDelegate.m */; };
 		98881AE01EFCE90D008B9B13 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881ADF1EFCE90D008B9B13 /* ViewController.m */; };
@@ -39,6 +50,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		980185D91F00B56D0099173C /* DKAssetGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAssetGroup.h; sourceTree = "<group>"; };
+		980185DA1F00B56D0099173C /* DKAssetGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAssetGroup.m; sourceTree = "<group>"; };
+		980185DF1F00BA8B0099173C /* DKImageResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKImageResource.h; sourceTree = "<group>"; };
+		980185E01F00BA8B0099173C /* DKImageResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKImageResource.m; sourceTree = "<group>"; };
+		980185E61F00E3E70099173C /* DKCameraResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DKCameraResource.bundle; sourceTree = "<group>"; };
+		980185E81F00E4880099173C /* DKImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DKImagePickerController.bundle; sourceTree = "<group>"; };
+		980185EB1F00E5F00099173C /* DKAssetGroupDetailBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAssetGroupDetailBaseCell.h; sourceTree = "<group>"; };
+		980185EC1F00E5F00099173C /* DKAssetGroupDetailBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAssetGroupDetailBaseCell.m; sourceTree = "<group>"; };
+		980185EE1F00E8170099173C /* DKAssetGroupDetailCameraCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAssetGroupDetailCameraCell.h; sourceTree = "<group>"; };
+		980185EF1F00E8170099173C /* DKAssetGroupDetailCameraCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAssetGroupDetailCameraCell.m; sourceTree = "<group>"; };
+		980185F11F00E9A80099173C /* DKAssetGroupDetailImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAssetGroupDetailImageCell.h; sourceTree = "<group>"; };
+		980185F21F00E9A80099173C /* DKAssetGroupDetailImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAssetGroupDetailImageCell.m; sourceTree = "<group>"; };
+		980185F41F00EF090099173C /* DKAssetGroupDetailVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAssetGroupDetailVideoCell.h; sourceTree = "<group>"; };
+		980185F51F00EF090099173C /* DKAssetGroupDetailVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAssetGroupDetailVideoCell.m; sourceTree = "<group>"; };
+		980185F71F00F89A0099173C /* DKAssetGroupGridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAssetGroupGridLayout.h; sourceTree = "<group>"; };
+		980185F81F00F89A0099173C /* DKAssetGroupGridLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAssetGroupGridLayout.m; sourceTree = "<group>"; };
+		980185FA1F0101010099173C /* DKImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKImagePickerController.h; sourceTree = "<group>"; };
+		980185FB1F0101010099173C /* DKImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKImagePickerController.m; sourceTree = "<group>"; };
+		980185FD1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKImagePickerControllerDefaultUIDelegate.h; sourceTree = "<group>"; };
+		980185FE1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKImagePickerControllerDefaultUIDelegate.m; sourceTree = "<group>"; };
 		98881AD51EFCE90D008B9B13 /* DKImagePickerControllerDemo_OC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DKImagePickerControllerDemo_OC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98881AD91EFCE90D008B9B13 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		98881ADB1EFCE90D008B9B13 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -90,6 +121,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		980185DC1F00BA580099173C /* DKImagePickerController */ = {
+			isa = PBXGroup;
+			children = (
+				980185FA1F0101010099173C /* DKImagePickerController.h */,
+				980185FB1F0101010099173C /* DKImagePickerController.m */,
+				980185FD1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.h */,
+				980185FE1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m */,
+				980185DD1F00BA580099173C /* View */,
+				980185DF1F00BA8B0099173C /* DKImageResource.h */,
+				980185E01F00BA8B0099173C /* DKImageResource.m */,
+				980185E81F00E4880099173C /* DKImagePickerController.bundle */,
+			);
+			path = DKImagePickerController;
+			sourceTree = "<group>";
+		};
+		980185DD1F00BA580099173C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				980185DE1F00BA580099173C /* Cell */,
+				980185F71F00F89A0099173C /* DKAssetGroupGridLayout.h */,
+				980185F81F00F89A0099173C /* DKAssetGroupGridLayout.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		980185DE1F00BA580099173C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				980185EB1F00E5F00099173C /* DKAssetGroupDetailBaseCell.h */,
+				980185EC1F00E5F00099173C /* DKAssetGroupDetailBaseCell.m */,
+				980185EE1F00E8170099173C /* DKAssetGroupDetailCameraCell.h */,
+				980185EF1F00E8170099173C /* DKAssetGroupDetailCameraCell.m */,
+				980185F11F00E9A80099173C /* DKAssetGroupDetailImageCell.h */,
+				980185F21F00E9A80099173C /* DKAssetGroupDetailImageCell.m */,
+				980185F41F00EF090099173C /* DKAssetGroupDetailVideoCell.h */,
+				980185F51F00EF090099173C /* DKAssetGroupDetailVideoCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		980185E51F00E3AF0099173C /* DKCamera */ = {
+			isa = PBXGroup;
+			children = (
+				980185E61F00E3E70099173C /* DKCameraResource.bundle */,
+			);
+			path = DKCamera;
+			sourceTree = "<group>";
+		};
 		98881ACC1EFCE90D008B9B13 = {
 			isa = PBXGroup;
 			children = (
@@ -158,7 +237,9 @@
 		98881B0E1EFCF2E2008B9B13 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				980185E51F00E3AF0099173C /* DKCamera */,
 				98881B0F1EFCF2E2008B9B13 /* DKImageManger */,
+				980185DC1F00BA580099173C /* DKImagePickerController */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -188,6 +269,8 @@
 			children = (
 				98881B181EFCFDDE008B9B13 /* DKAsset.h */,
 				98881B191EFCFDDE008B9B13 /* DKAsset.m */,
+				980185D91F00B56D0099173C /* DKAssetGroup.h */,
+				980185DA1F00B56D0099173C /* DKAssetGroup.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -301,6 +384,8 @@
 				98881AE81EFCE90D008B9B13 /* LaunchScreen.storyboard in Resources */,
 				98881AE51EFCE90D008B9B13 /* Assets.xcassets in Resources */,
 				98881AE31EFCE90D008B9B13 /* Main.storyboard in Resources */,
+				980185E71F00E3E70099173C /* DKCameraResource.bundle in Resources */,
+				980185E91F00E4880099173C /* DKImagePickerController.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,9 +412,18 @@
 			files = (
 				98881B0D1EFCF0C0008B9B13 /* DKImagePickerControllerDemoVC.m in Sources */,
 				98881AE01EFCE90D008B9B13 /* ViewController.m in Sources */,
+				980185F31F00E9A80099173C /* DKAssetGroupDetailImageCell.m in Sources */,
+				980185F91F00F89A0099173C /* DKAssetGroupGridLayout.m in Sources */,
+				980185F01F00E8170099173C /* DKAssetGroupDetailCameraCell.m in Sources */,
+				980185E11F00BA8B0099173C /* DKImageResource.m in Sources */,
+				980185FC1F0101010099173C /* DKImagePickerController.m in Sources */,
+				980185FF1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m in Sources */,
 				98881B1A1EFCFDDE008B9B13 /* DKAsset.m in Sources */,
+				980185F61F00EF090099173C /* DKAssetGroupDetailVideoCell.m in Sources */,
 				98881B171EFCFD91008B9B13 /* DKGroupDataManager.m in Sources */,
 				98881B141EFCF324008B9B13 /* DKImageManager.m in Sources */,
+				980185DB1F00B56D0099173C /* DKAssetGroup.m in Sources */,
+				980185ED1F00E5F00099173C /* DKAssetGroupDetailBaseCell.m in Sources */,
 				98881ADD1EFCE90D008B9B13 /* AppDelegate.m in Sources */,
 				98881ADA1EFCE90D008B9B13 /* main.m in Sources */,
 			);
@@ -565,6 +659,7 @@
 				98881B041EFCE90D008B9B13 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		98881B051EFCE90D008B9B13 /* Build configuration list for PBXNativeTarget "DKImagePickerControllerDemo_OCTests" */ = {
 			isa = XCConfigurationList;
@@ -573,6 +668,7 @@
 				98881B071EFCE90D008B9B13 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		98881B081EFCE90D008B9B13 /* Build configuration list for PBXNativeTarget "DKImagePickerControllerDemo_OCUITests" */ = {
 			isa = XCConfigurationList;
@@ -581,6 +677,7 @@
 				98881B0A1EFCE90D008B9B13 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

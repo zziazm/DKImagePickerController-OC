@@ -39,4 +39,12 @@
 - (void)fetchImageDataForAsset:(DKAsset *)asset
                        options:(PHImageRequestOptions *)options
                  completeBlock:(void(^)(NSData * imageData, NSDictionary * info))completeBlock;
+
+- (void)fetchAVAsset:(DKAsset *)asset
+       completeBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock;
+
+- (void)fetchAVAsset:(DKAsset *)asset
+             options:(PHVideoRequestOptions *)options
+       completeBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock;
+
 @end
