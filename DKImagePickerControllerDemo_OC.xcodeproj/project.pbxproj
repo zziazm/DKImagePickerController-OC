@@ -18,6 +18,7 @@
 		980185F91F00F89A0099173C /* DKAssetGroupGridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185F81F00F89A0099173C /* DKAssetGroupGridLayout.m */; };
 		980185FC1F0101010099173C /* DKImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185FB1F0101010099173C /* DKImagePickerController.m */; };
 		980185FF1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185FE1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m */; };
+		980186021F02065D0099173C /* DKAssetGroupDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 980186011F02065D0099173C /* DKAssetGroupDetailVC.m */; };
 		98881ADA1EFCE90D008B9B13 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881AD91EFCE90D008B9B13 /* main.m */; };
 		98881ADD1EFCE90D008B9B13 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881ADC1EFCE90D008B9B13 /* AppDelegate.m */; };
 		98881AE01EFCE90D008B9B13 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881ADF1EFCE90D008B9B13 /* ViewController.m */; };
@@ -70,6 +71,8 @@
 		980185FB1F0101010099173C /* DKImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKImagePickerController.m; sourceTree = "<group>"; };
 		980185FD1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKImagePickerControllerDefaultUIDelegate.h; sourceTree = "<group>"; };
 		980185FE1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKImagePickerControllerDefaultUIDelegate.m; sourceTree = "<group>"; };
+		980186001F02065D0099173C /* DKAssetGroupDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAssetGroupDetailVC.h; sourceTree = "<group>"; };
+		980186011F02065D0099173C /* DKAssetGroupDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAssetGroupDetailVC.m; sourceTree = "<group>"; };
 		98881AD51EFCE90D008B9B13 /* DKImagePickerControllerDemo_OC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DKImagePickerControllerDemo_OC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98881AD91EFCE90D008B9B13 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		98881ADB1EFCE90D008B9B13 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -142,6 +145,8 @@
 				980185DE1F00BA580099173C /* Cell */,
 				980185F71F00F89A0099173C /* DKAssetGroupGridLayout.h */,
 				980185F81F00F89A0099173C /* DKAssetGroupGridLayout.m */,
+				980186001F02065D0099173C /* DKAssetGroupDetailVC.h */,
+				980186011F02065D0099173C /* DKAssetGroupDetailVC.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -342,6 +347,7 @@
 				TargetAttributes = {
 					98881AD41EFCE90D008B9B13 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 4QQ73282F5;
 						ProvisioningStyle = Automatic;
 					};
 					98881AED1EFCE90D008B9B13 = {
@@ -420,6 +426,7 @@
 				980185FF1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m in Sources */,
 				98881B1A1EFCFDDE008B9B13 /* DKAsset.m in Sources */,
 				980185F61F00EF090099173C /* DKAssetGroupDetailVideoCell.m in Sources */,
+				980186021F02065D0099173C /* DKAssetGroupDetailVC.m in Sources */,
 				98881B171EFCFD91008B9B13 /* DKGroupDataManager.m in Sources */,
 				98881B141EFCF324008B9B13 /* DKImageManager.m in Sources */,
 				980185DB1F00B56D0099173C /* DKAssetGroup.m in Sources */,
@@ -576,6 +583,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4QQ73282F5;
 				INFOPLIST_FILE = DKImagePickerControllerDemo_OC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "zm.DKImagePickerControllerDemo-OC";
@@ -587,6 +595,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4QQ73282F5;
 				INFOPLIST_FILE = DKImagePickerControllerDemo_OC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "zm.DKImagePickerControllerDemo-OC";

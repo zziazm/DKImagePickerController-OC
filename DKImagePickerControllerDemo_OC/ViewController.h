@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class DKImagePickerController;
 @interface ViewController : UIViewController
-
+@property (nonatomic, strong) DKImagePickerController * pickerController;
 
 @end
 

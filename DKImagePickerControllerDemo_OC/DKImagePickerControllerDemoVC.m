@@ -8,6 +8,7 @@
 
 #import "DKImagePickerControllerDemoVC.h"
 #import "ViewController.h"
+#import "DKImagePickerController.h"
 @interface DKImagePickerControllerDemoVC ()
 
 @end
@@ -97,7 +98,7 @@
     ViewController * vc = (ViewController *)segue.destinationViewController;
     vc.title= cell.textLabel.text;
     if ([segue.identifier isEqualToString:@"Pick All"]) {
-        
+        vc.pickerController = [DKImagePickerController new];
     }
     
     

@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Photos/Photos.h>
 @class DKAsset;
 @class DKImagePickerController;
 @class DKAssetGroupDetailBaseCell;
+@class DKImagePickerControllerDefaultUIDelegate;
 @protocol DKImagePickerControllerUIDelegate <NSObject>
 
 
@@ -37,9 +39,9 @@
 
 - (UIColor *)imagePickerControllerCollectionViewBackgroundColor;
 
-- (DKAssetGroupDetailBaseCell *)imagePickerControllerCollectionImageCell;
-- (DKAssetGroupDetailBaseCell *)imagePickerControllerCollectionCameraCell;
-- (DKAssetGroupDetailBaseCell *)imagePickerControllerCollectionVideoCell;
+- (Class)imagePickerControllerCollectionImageCell;
+- (Class)imagePickerControllerCollectionCameraCell;
+- (Class)imagePickerControllerCollectionVideoCell;
 
 @end
 
@@ -57,5 +59,68 @@ typedef enum : NSUInteger {
 } DKImagePickerControllerSourceType;
 
 @interface DKImagePickerController : UINavigationController
+@property (nonatomic, strong) DKImagePickerControllerDefaultUIDelegate *UIDelegate;
+@property (nonatomic, assign) DKImagePickerControllerSourceType sourceType;
+@property (nonatomic, copy) NSArray  <DKAsset *> * defaultSelectedAssets;
+@property (nonatomic, strong) NSMutableArray <DKAsset *> *selectedAssets;
+@property (nonatomic, copy) void(^didCancel)();
+@property (nonatomic, copy) void(^didSelectAssets)(NSArray<DKAsset *> * asset);
+@property (nonatomic, assign) BOOL singleSelect;
+@property (nonatomic, assign) NSInteger maxSelectableCount;
+@property (nonatomic, assign) PHAssetCollectionSubtype defaultAssetGroup;
+/**
+ The types of PHAssetCollection to display in the picker.
+ Default value is @[@(PHAssetCollectionSubtypeSmartAlbumUserLibrary),
+                    @(PHAssetCollectionSubtypeSmartAlbumFavorites),
+                    @(PHAssetCollectionSubtypeAlbumRegular)]
+ */
+@property (nonatomic, copy)NSArray <NSNumber *> * assetGroupTypes;
 
+
+/**
+ Set the showsEmptyAlbums to specify whether or not the empty albums is shown in the picker
+ Default value is YES
+ */
+@property (nonatomic, assign) BOOL showsEmptyAlbums;
+
+
+@property (nonatomic, copy) BOOL (^assetFilter) (PHAsset * asset);
+
+/**
+ The type of picker interface to be displayed by the controller.
+ Default value is DKImagePickerControllerAssetAllAssetsType
+ */
+@property (nonatomic, assign) DKImagePickerControllerAssetType assetType;
+
+/**
+ The predicate applies to images only
+ */
+@property (nonatomic, strong) NSPredicate * imageFetchPredicate;
+
+
+/**
+ The predicate applies to videos only.
+ */
+@property (nonatomic, strong) NSPredicate * videoFetchPredicate;
+
+/**
+ Whether allows to select photos and videos at the same time.
+ Default value is NO
+ */
+@property (nonatomic, assign) BOOL allowMultipleTypes;
+
+/**
+ If YES, and the requested image is not stored on the local device, the Picker downloads the image from iCloud.
+ Default value is YES
+ */
+@property (nonatomic, assign) BOOL autoDownloadWhenAssetIsInCloud;
+
+/**
+ Determines whether or not the rotation is enabled.
+ Default value is NO;
+ */
+@property (nonatomic, assign) BOOL allowsLandscape;
+
+
+@property (nonatomic, assign) BOOL showsCancelButton;
 @end

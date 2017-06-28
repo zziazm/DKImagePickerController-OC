@@ -8,9 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#
 #import <Photos/Photos.h>
 @class DKAsset;
+@class DKGroupDataManager;
 @interface DKImageManager : NSObject
+
+@property (nonatomic, strong) DKGroupDataManager * groupDataManager;
+
 + (instancetype)shareInstance;
 
 
@@ -46,5 +51,9 @@
 - (void)fetchAVAsset:(DKAsset *)asset
              options:(PHVideoRequestOptions *)options
        completeBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock;
+- (void)stopCachingForAllAssets;
++ (void)checkPhotoPermissionWithHandle:(void(^)(BOOL granted))handle;
+
+@property (nonatomic, assign) BOOL autoDownloadWhenAssetIsInCloud;
 
 @end

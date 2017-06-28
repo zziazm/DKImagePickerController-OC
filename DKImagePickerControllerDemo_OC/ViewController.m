@@ -7,9 +7,10 @@
 //
 
 #import "ViewController.h"
-
+#import "DKImagePickerController.h"
+#import "DKAsset.h"
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate>
-
+@property (nonatomic, copy) NSArray <DKAsset *>*assets;
 @end
 
 @implementation ViewController
@@ -19,6 +20,25 @@
         // Do any additional setup after loading the view, typically from a nib.
 }
 
+- (void)showImagePicker{
+    _pickerController.defaultSelectedAssets = self.assets;
+    [_pickerController setDidCancel:^{
+        NSLog(@"didCancel");
+    }];
+    __weak typeof(self) weakSelf = self;
+    [_pickerController setDidSelectAssets:^(NSArray <DKAsset *>* assets){
+        __strong typeof(self) strongSelf = weakSelf;
+        strongSelf.assets = assets;
+        
+    }];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        _pickerController.modalPresentationStyle = UIModalPresentationFormSheet;
+    }
+    [self presentViewController:_pickerController animated:YES completion:nil];
+
+    
+    
+}
 
 
 #pragma mark -- UITableViewDataSource, UITableViewDelegate

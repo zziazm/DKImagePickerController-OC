@@ -12,4 +12,5 @@
 + (NSString *)cellReuseIdentifier{
     return @"DKAssetGroupDetailBaseCell";
 }
+
 @end

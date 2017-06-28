@@ -7,6 +7,7 @@
 //
 
 #import "DKImageManager.h"
+#import "DKGroupDataManager.h"
 #import "DKAsset.h"
 
 @interface DKImageManager()
@@ -14,7 +15,6 @@
 @property (nonatomic, strong) PHCachingImageManager * manager;
 @property (nonatomic, strong) PHImageRequestOptions * defaultImageRequestOptions;
 @property (nonatomic, strong) PHVideoRequestOptions * defaultVideoRequestOptions;
-@property (nonatomic, assign) BOOL autoDownloadWhenAssetIsInCloud;
 @end
 
 
@@ -28,7 +28,12 @@
     }
     return self;
 }
-
+- (DKGroupDataManager *)groupDataManager{
+    if (!_groupDataManager) {
+        _groupDataManager = [DKGroupDataManager new];
+    }
+    return  _groupDataManager;
+}
 - (PHImageRequestOptions *)defaultImageRequestOptions{
     if (_defaultImageRequestOptions == nil) {
         _defaultImageRequestOptions = [[PHImageRequestOptions alloc] init];
@@ -161,5 +166,7 @@ completeBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock
         }
     }];
 }
-
+- (void)stopCachingForAllAssets{
+    [self.manager stopCachingImagesForAllAssets];
+}
 @end

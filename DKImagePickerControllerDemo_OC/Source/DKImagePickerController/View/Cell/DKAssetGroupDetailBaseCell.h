@@ -18,7 +18,6 @@
 //@end
 
 
-
 @interface DKAssetGroupDetailBaseCell : UICollectionViewCell
 
 @property (nonatomic, weak) DKAsset * asset;
