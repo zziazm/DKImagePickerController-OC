@@ -12,8 +12,8 @@
 - (instancetype)initWithOriginalAsset:(PHAsset *)asset{
     self = [super init];
     if (self) {
-        self.localIdentifier = _originalAsset.localIdentifier;
-        self.location = _originalAsset.location;
+        self.localIdentifier = asset.localIdentifier;
+        self.location = asset.location;
         self.originalAsset = asset;
         if (asset.mediaType == PHAssetMediaTypeVideo) {
             self.isVideo = true;

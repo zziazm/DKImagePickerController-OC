@@ -31,6 +31,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
+        
         [self addSubview:self.checkImageView];
         [self addSubview:self.checkLabel];
     }
@@ -64,6 +65,7 @@
         [self.contentView addSubview:self.thumbnailImageView];
         
         self.checkView = [DKImageCheckView new];
+        self.checkView.frame = self.bounds;
         self.checkView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.checkView.checkImageView.tintColor = nil;
         self.checkView.checkLabel.font = [UIFont boldSystemFontOfSize:14];
@@ -88,8 +90,9 @@
         self.thumbnailImageView.image = thumbnailImage;
     }
 }
+
 - (void)setIndex:(NSInteger)index{
-    self.index = index;
+    super.index = index;
     self.checkView.checkLabel.text = [NSString stringWithFormat:@"%ld", self.index + 1];
 }
 

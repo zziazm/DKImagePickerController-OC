@@ -19,6 +19,7 @@
 - (id)init{
     if (self= [super init]) {
         _showsEmptyAlbums = YES;
+        _assets = @{}.mutableCopy;
     }
     return self;
 }

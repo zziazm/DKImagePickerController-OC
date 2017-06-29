@@ -17,7 +17,11 @@
 @end
 
 @implementation DKImagePickerController
-
+- (void)done{
+    if (self.presentingViewController) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (!_hasInitialized) {
@@ -203,7 +207,32 @@
     self.assetFetchOptions.predicate = predicate;
     return self.assetFetchOptions;
 }
+- (void)selectImage:(DKAsset *)asset{
+    if (self.singleSelect) {
+        [self deselectAllAssets];
+        [self.selectedAssets addObject:asset];
+        [self done];
+    }else{
+        [self.selectedAssets addObject:asset];
+        if (self.sourceType == DKImagePickerControllerSourceCameraType) {
+            [self done];
+        }else{
+            [self.UIDelegate imagePickerController:self didSelectAssets:@[asset]];
+        }
+    }
+}
 
+- (void)deselectAllAssets{
+    if (self.selectedAssets.count > 0) {
+        NSArray * assets = [self.selectedAssets copy];
+        [self.selectedAssets removeAllObjects];
+        [self.UIDelegate imagePickerController:self didDeselectAssets:assets];
+        UIViewController * vc = self.viewControllers.firstObject;
+        if ([vc isKindOfClass:[DKAssetGroupDetailVC class]]) {
+            [((DKAssetGroupDetailVC *)vc).collectionView reloadData];
+        }
+    }
+}
 /*
 #pragma mark - Navigation
 

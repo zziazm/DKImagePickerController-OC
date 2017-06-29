@@ -24,7 +24,11 @@
 }
 
 - (void)updateDoneButtonTitle:(UIButton *)button{
-
+    if (self.imagePickerController.selectedAssets.count > 0) {
+    [button setTitle:[NSString stringWithFormat:DKImageLocalizedStringWithKey(@"select"), self.imagePickerController.selectedAssets.count] forState:UIControlStateNormal];
+    }else{
+        [button setTitle:DKImageLocalizedStringWithKey(@"done") forState:UIControlStateNormal];
+    }
     [button sizeToFit];
 }
 

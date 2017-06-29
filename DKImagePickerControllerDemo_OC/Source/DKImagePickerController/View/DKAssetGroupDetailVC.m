@@ -177,27 +177,6 @@
     return asset;
 }
 
-#pragma mark -- UICollectionViewDelegate, UICollectionViewDataSource
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    if (!self.selectedGroupId) {
-        return 0;
-    }
-    
-    DKAssetGroup * group = [[[DKImageManager shareInstance] groupDataManager] fetchGroupWithGroupId:self.selectedGroupId];
-    NSInteger count = group.totalCount + (self.hidesCamera ? 0 : 1);
-    return count;
-}
-
-// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
-- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    DKAssetGroupDetailBaseCell * cell;
-    if ([self isCameraCell:indexPath]) {
-        cell = [self dequeueReusableCameraCellForIndexPath:indexPath];
-    }else{
-        cell = [self dequeueReusableCellForIndexPath:indexPath];
-    }
-    return cell;
-}
 
 - (DKAssetGroupDetailBaseCell *)dequeueReusableCameraCellForIndexPath:(NSIndexPath *)indexPath{
     [self registerCellifNeededWithCellClass:[DKAssetGroupDetailCameraCell class] cellReuseIdentifier:[DKAssetGroupDetailCameraCell cellReuseIdentifier]];
@@ -253,14 +232,59 @@
         }
     }];
     
-    
-    if ([self.imagePickerController.selectedAssets indexOfObject:asset] != NSNotFound) {
+    NSInteger result = [self.imagePickerController.selectedAssets indexOfObject:asset] ;
+    if ( result == NSNotFound) {
+        cell.selected = NO;
+        [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    }else{
         cell.selected = YES;
         cell.index = [self.imagePickerController.selectedAssets indexOfObject:asset];
         [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+        
+    }
+}
+
+
+#pragma mark -- UICollectionViewDelegate, UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    if (!self.selectedGroupId) {
+        return 0;
+    }
+    
+    DKAssetGroup * group = [[[DKImageManager shareInstance] groupDataManager] fetchGroupWithGroupId:self.selectedGroupId];
+    NSInteger count = group.totalCount + (self.hidesCamera ? 0 : 1);
+    return count;
+}
+
+// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    DKAssetGroupDetailBaseCell * cell;
+    if ([self isCameraCell:indexPath]) {
+        cell = [self dequeueReusableCameraCellForIndexPath:indexPath];
     }else{
-        cell.selected = NO;
-        [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+        cell = [self dequeueReusableCellForIndexPath:indexPath];
+    }
+    return cell;
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+//    DKAsset * firstSelectAsset = self.imagePickerController.selectedAssets.firstObject;
+//    DKAssetGroupDetailBaseCell * cell = (DKAssetGroupDetailBaseCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    DKAsset * selectedAsset = cell.asset;
+    BOOL shouldSelect = self.imagePickerController.selectedAssets.count < self.imagePickerController.maxSelectableCount;
+    if (!shouldSelect) {
+        [self.imagePickerController.UIDelegate imagePickerControllerDidReachMaxLimit:self.imagePickerController];
+    }
+    return shouldSelect;
+}
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if ([self isCameraCell:indexPath]) {
+        
+    }else{
+        NSArray * a = [[[DKImageManager shareInstance] groupDataManager] assets];
+        DKAsset * selectedAsset =  ((DKAssetGroupDetailBaseCell *)[collectionView cellForItemAtIndexPath:indexPath]).asset;
+        [self.imagePickerController selectImage:selectedAsset];
+        ((DKAssetGroupDetailBaseCell *)[collectionView cellForItemAtIndexPath:indexPath]).index = self.imagePickerController.selectedAssets.count - 1;
     }
 }
 - (void)didReceiveMemoryWarning {
