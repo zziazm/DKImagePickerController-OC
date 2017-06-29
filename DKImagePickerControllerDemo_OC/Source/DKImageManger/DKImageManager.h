@@ -55,5 +55,5 @@
 + (void)checkPhotoPermissionWithHandle:(void(^)(BOOL granted))handle;
 
 @property (nonatomic, assign) BOOL autoDownloadWhenAssetIsInCloud;
-
++ (CGSize)toPixel:(CGSize)size;
 @end

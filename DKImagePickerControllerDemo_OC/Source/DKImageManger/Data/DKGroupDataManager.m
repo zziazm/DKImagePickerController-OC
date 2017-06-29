@@ -47,7 +47,7 @@
                PHFetchResult<PHAssetCollection *> * fetchResult = [PHAssetCollection fetchAssetCollectionsWithType:[self collectionTypeForSubtype:[obj integerValue]] subtype:[obj integerValue] options:nil];
                [fetchResult enumerateObjectsUsingBlock:^(PHAssetCollection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                    DKAssetGroup * assetGroup = [DKAssetGroup new];
-                   assetGroup.groupId = obj.localizedTitle;
+                   assetGroup.groupId = obj.localIdentifier;
                    [strongSelf updateGroup:assetGroup collection:obj];
                    [strongSelf updateGroup:assetGroup fetchResult:[PHAsset fetchAssetsInAssetCollection:obj options:self.assetFetchOptions]];
                    if (strongSelf.showsEmptyAlbums || assetGroup.totalCount > 0) {
@@ -137,6 +137,7 @@
 }
 - (PHAsset *)fetchOriginalAsset:(DKAssetGroup *)group
                           index:(NSInteger)index{
+    
     return group.fetchResult[group.totalCount - index - 1];
 }
 

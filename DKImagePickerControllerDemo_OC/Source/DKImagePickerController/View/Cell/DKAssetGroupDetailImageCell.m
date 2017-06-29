@@ -59,6 +59,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.thumbnailImageView.frame = self.bounds;
+        self.thumbnailImageView.backgroundColor = [UIColor yellowColor];
         self.thumbnailImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.contentView addSubview:self.thumbnailImageView];
         
@@ -81,14 +82,19 @@
     }
     return _thumbnailImageView;
 }
-
+- (void)setThumbnailImage:(UIImage *)thumbnailImage{
+    if (self.thumbnailImage != thumbnailImage) {
+        super.thumbnailImage = thumbnailImage;
+        self.thumbnailImageView.image = thumbnailImage;
+    }
+}
 - (void)setIndex:(NSInteger)index{
     self.index = index;
     self.checkView.checkLabel.text = [NSString stringWithFormat:@"%ld", self.index + 1];
 }
 
 - (void)setSelected:(BOOL)selected{
-    self.selected = selected;
+    super.selected = selected;
     self.checkView.hidden = !selected;
 }
 /*

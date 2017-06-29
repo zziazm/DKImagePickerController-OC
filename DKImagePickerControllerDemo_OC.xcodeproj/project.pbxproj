@@ -19,6 +19,7 @@
 		980185FC1F0101010099173C /* DKImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185FB1F0101010099173C /* DKImagePickerController.m */; };
 		980185FF1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185FE1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m */; };
 		980186021F02065D0099173C /* DKAssetGroupDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 980186011F02065D0099173C /* DKAssetGroupDetailVC.m */; };
+		981EF64A1F0489250029B36E /* DKAssetGroupListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 981EF6491F0489250029B36E /* DKAssetGroupListVC.m */; };
 		98881ADA1EFCE90D008B9B13 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881AD91EFCE90D008B9B13 /* main.m */; };
 		98881ADD1EFCE90D008B9B13 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881ADC1EFCE90D008B9B13 /* AppDelegate.m */; };
 		98881AE01EFCE90D008B9B13 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881ADF1EFCE90D008B9B13 /* ViewController.m */; };
@@ -73,6 +74,8 @@
 		980185FE1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKImagePickerControllerDefaultUIDelegate.m; sourceTree = "<group>"; };
 		980186001F02065D0099173C /* DKAssetGroupDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAssetGroupDetailVC.h; sourceTree = "<group>"; };
 		980186011F02065D0099173C /* DKAssetGroupDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAssetGroupDetailVC.m; sourceTree = "<group>"; };
+		981EF6481F0489250029B36E /* DKAssetGroupListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAssetGroupListVC.h; sourceTree = "<group>"; };
+		981EF6491F0489250029B36E /* DKAssetGroupListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAssetGroupListVC.m; sourceTree = "<group>"; };
 		98881AD51EFCE90D008B9B13 /* DKImagePickerControllerDemo_OC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DKImagePickerControllerDemo_OC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98881AD91EFCE90D008B9B13 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		98881ADB1EFCE90D008B9B13 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -147,6 +150,8 @@
 				980185F81F00F89A0099173C /* DKAssetGroupGridLayout.m */,
 				980186001F02065D0099173C /* DKAssetGroupDetailVC.h */,
 				980186011F02065D0099173C /* DKAssetGroupDetailVC.m */,
+				981EF6481F0489250029B36E /* DKAssetGroupListVC.h */,
+				981EF6491F0489250029B36E /* DKAssetGroupListVC.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -418,6 +423,7 @@
 			files = (
 				98881B0D1EFCF0C0008B9B13 /* DKImagePickerControllerDemoVC.m in Sources */,
 				98881AE01EFCE90D008B9B13 /* ViewController.m in Sources */,
+				981EF64A1F0489250029B36E /* DKAssetGroupListVC.m in Sources */,
 				980185F31F00E9A80099173C /* DKAssetGroupDetailImageCell.m in Sources */,
 				980185F91F00F89A0099173C /* DKAssetGroupGridLayout.m in Sources */,
 				980185F01F00E8170099173C /* DKAssetGroupDetailCameraCell.m in Sources */,

@@ -16,6 +16,7 @@
 #import "DKAssetGroupDetailBaseCell.h"
 #import "DKAssetGroupDetailImageCell.h"
 #import "DKAssetGroupDetailVideoCell.h"
+#import "DKAssetGroupListVC.h"
 #import "DKAssetGroupDetailCameraCell.h"
 @implementation UICollectionView(DKExtension)
 
@@ -54,6 +55,7 @@
 @property (nonatomic, strong) NSMutableSet * registeredCellIdentifiers;
 @property (nonatomic, assign) CGSize thumbnailSize;
 @property (nonatomic, assign) CGRect previousPreheatRect;
+@property (nonatomic, strong) DKAssetGroupListVC * groupListVC;
 @end
 
 @implementation DKAssetGroupDetailVC
@@ -79,7 +81,16 @@
     
 }
 
-
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    if (self.footerView) {
+        self.footerView.frame = CGRectMake(0, self.view.bounds.size.height - self.footerView.bounds.size.height, self.view.bounds.size.width, self.footerView.bounds.size.height);
+        
+        self.collectionView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.footerView.bounds.size.height);
+    }else{
+        self.collectionView.frame = self.view.bounds;
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     UICollectionViewLayout * layout = [self.imagePickerController.UIDelegate layoutForImagePickerController:self.imagePickerController];
@@ -96,6 +107,7 @@
     }
     
     self.hidesCamera = self.imagePickerController.sourceType == DKImagePickerControllerSourcePhotoType;
+    [self checkPhotoPermission];
     // Do any additional setup after loading the view.
 }
 
@@ -124,6 +136,10 @@
 }
 - (void)setup{
     [self resetCachedAssets];
+    self.groupListVC = [[DKAssetGroupListVC alloc] initWithSelectedGroupDidChangeBlock:^(NSString *groupId) {
+        [self selectAssetGroup:groupId];
+    } defaultAssetGroup:self.imagePickerController.defaultAssetGroup];
+    [self.groupListVC loadGroups];
 //    [DKImageManager shareInstance]
 }
 
@@ -134,7 +150,9 @@
     }
     self.selectedGroupId = groupId;
     [self updateTitleView];
-    [self.collectionView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+    });
 }
 
 
@@ -155,7 +173,7 @@
     }
     NSInteger assetIndex = index - (self.hidesCamera ? 0 : 1);
     DKAssetGroup * group = [[[DKImageManager shareInstance] groupDataManager] fetchGroupWithGroupId:self.selectedGroupId];
-    DKAsset * asset = [[[DKImageManager shareInstance] groupDataManager] fetchAsset:group index:index];
+    DKAsset * asset = [[[DKImageManager shareInstance] groupDataManager] fetchAsset:group index:assetIndex];
     return asset;
 }
 
@@ -166,7 +184,8 @@
     }
     
     DKAssetGroup * group = [[[DKImageManager shareInstance] groupDataManager] fetchGroupWithGroupId:self.selectedGroupId];
-    return group.totalCount + (self.hidesCamera ? 0 : 1);
+    NSInteger count = group.totalCount + (self.hidesCamera ? 0 : 1);
+    return count;
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
@@ -199,11 +218,12 @@
     
     [self registerCellifNeededWithCellClass:cellCls cellReuseIdentifier:cellId];
     DKAssetGroupDetailBaseCell * cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    [self setupAssetCell:cell indexPath:indexPath asset:asset];
     return cell;
 }
 - (void)registerCellifNeededWithCellClass:(Class)cellClass cellReuseIdentifier:(NSString *)cellReuseIdentifier{
     if (![self.registeredCellIdentifiers containsObject:cellReuseIdentifier]) {
-        [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellReuseIdentifier];
+        [self.collectionView registerClass:cellClass forCellWithReuseIdentifier:cellReuseIdentifier];
         [self.registeredCellIdentifiers addObject:cellReuseIdentifier];
     }
 }
@@ -214,6 +234,34 @@
 - (void)resetCachedAssets{
     [[DKImageManager shareInstance] stopCachingForAllAssets];
     self.previousPreheatRect = CGRectZero;
+}
+- (void)setupAssetCell:(DKAssetGroupDetailBaseCell *)cell
+             indexPath:(NSIndexPath *)indexPath
+                 asset:(DKAsset *)asset{
+    cell.asset = asset;
+    NSInteger tag = indexPath.row + 1;
+    cell.tag = tag;
+    
+    if (CGSizeEqualToSize(self.thumbnailSize, CGSizeZero)) {
+        CGSize size = [self.collectionView.collectionViewLayout  layoutAttributesForItemAtIndexPath:indexPath].size;
+        self.thumbnailSize = [DKImageManager toPixel:size];
+    }
+    
+    [asset fetchImageWithSize:self.thumbnailSize options:nil contentMode:PHImageContentModeAspectFill completeBlock:^(UIImage *image, NSDictionary *info) {
+        if (cell.tag == tag) {
+            cell.thumbnailImage = image;
+        }
+    }];
+    
+    
+    if ([self.imagePickerController.selectedAssets indexOfObject:asset] != NSNotFound) {
+        cell.selected = YES;
+        cell.index = [self.imagePickerController.selectedAssets indexOfObject:asset];
+        [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    }else{
+        cell.selected = NO;
+        [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

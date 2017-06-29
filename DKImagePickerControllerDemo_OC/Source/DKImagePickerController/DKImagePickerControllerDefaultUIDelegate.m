@@ -74,6 +74,10 @@
 - (Class)imagePickerControllerCollectionVideoCell{
     return [DKAssetGroupDetailVideoCell class];
 }
-
-
+- (UIColor *)imagePickerControllerCollectionViewBackgroundColor {
+    return [UIColor whiteColor];
+}
+- (UIView *)imagePickerControllerFooterView:(DKImagePickerController *)imagePickerController{
+    return  nil;
+}
 @end

@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
+
+
+
+
 @interface DKAsset : NSObject
 @property (nonatomic, assign) BOOL isVideo;
 @property (nonatomic, strong) CLLocation * location;
@@ -15,6 +19,7 @@
 @property (nonatomic, strong) PHAsset * originalAsset;
 @property (nonatomic, copy) NSString * localIdentifier;
 @property (nonatomic, strong) UIImage * image;
+
 
 - (instancetype)initWithOriginalAsset:(PHAsset *)asset;
 - (instancetype)initWithImage:(UIImage *)image;
@@ -58,4 +63,6 @@
 - (void)fetchAVAssetIsSynchronous:(BOOL)IsSynchronous
                           options:(PHVideoRequestOptions *)options
                     completeBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock;
+
+
 @end

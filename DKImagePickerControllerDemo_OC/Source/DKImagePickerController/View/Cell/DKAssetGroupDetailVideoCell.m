@@ -34,7 +34,7 @@
 
 - (void)setAsset:(DKAsset *)asset{
     if (self.asset != asset) {
-        self.asset = asset;
+        super.asset = asset;
         UILabel * videoDurationLabel = [self.videoInfoView viewWithTag:-1];
         NSInteger minutes = asset.duration / 60;
         NSInteger tem = round(asset.duration);
@@ -58,7 +58,7 @@
     if (!_videoInfoView) {
         _videoInfoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 0)];
         UIImageView * videoImageView = [[UIImageView alloc] initWithImage:[DKImageResource videoCameraIcon]];
-        [_videoInfoView addSubview:_videoInfoView];
+        [_videoInfoView addSubview:videoImageView];
         videoImageView.center = CGPointMake(videoImageView.bounds.size.width/2 + 7, _videoInfoView.bounds.size.height/2);
         videoImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         

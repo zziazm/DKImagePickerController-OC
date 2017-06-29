@@ -169,4 +169,8 @@ completeBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock
 - (void)stopCachingForAllAssets{
     [self.manager stopCachingImagesForAllAssets];
 }
++ (CGSize)toPixel:(CGSize)size{
+    CGFloat scale = [[UIScreen mainScreen] scale];
+    return CGSizeMake(size.width * scale, size.height * scale);
+}
 @end
