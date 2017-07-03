@@ -18,6 +18,7 @@
 #import "DKAssetGroupDetailVideoCell.h"
 #import "DKAssetGroupListVC.h"
 #import "DKAssetGroupDetailCameraCell.h"
+#import "DKPopoverViewController.h"
 @implementation UICollectionView(DKExtension)
 
 - (NSArray <NSIndexPath *>*)indexPathsForElementsInRect:(CGRect)rect
@@ -126,14 +127,20 @@
     return _selectGroupButton;
 }
 
+- (void)showGroupSelector{
+    [DKPopoverViewController popoverViewController:self.groupListVC fromView:self.selectGroupButton];
+}
+
 - (void)checkPhotoPermission{
      [DKImageManager checkPhotoPermissionWithHandle:^(BOOL granted) {
          granted ? [self setup] : [self photoDenied];
      }];
 }
+
 - (void)photoDenied{
     
 }
+
 - (void)setup{
     [self resetCachedAssets];
     self.groupListVC = [[DKAssetGroupListVC alloc] initWithSelectedGroupDidChangeBlock:^(NSString *groupId) {
@@ -160,7 +167,7 @@
     DKAssetGroup * group = [[[DKImageManager shareInstance] groupDataManager] fetchGroupWithGroupId:self.selectedGroupId];
     self.title = group.groupName;
     NSInteger groupsCount = [[[[DKImageManager shareInstance] groupDataManager] groupIds] count];
-    [self.selectGroupButton setTitle:[NSString stringWithFormat:@"%@%@", group.groupName, groupsCount > 1 ? @"???" : @""] forState:UIControlStateNormal];
+    [self.selectGroupButton setTitle:[NSString stringWithFormat:@"%@%@", group.groupName, groupsCount > 1 ? @"箭头" : @""] forState:UIControlStateNormal];
     [self.selectGroupButton sizeToFit];
     self.selectGroupButton.enabled = groupsCount > 1;
     self.navigationItem.titleView = self.selectGroupButton;

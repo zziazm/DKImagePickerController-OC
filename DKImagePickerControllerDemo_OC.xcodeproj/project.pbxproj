@@ -19,6 +19,7 @@
 		980185FC1F0101010099173C /* DKImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185FB1F0101010099173C /* DKImagePickerController.m */; };
 		980185FF1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 980185FE1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m */; };
 		980186021F02065D0099173C /* DKAssetGroupDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 980186011F02065D0099173C /* DKAssetGroupDetailVC.m */; };
+		980629D01F09DB89004B74C9 /* DKPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 980629CF1F09DB89004B74C9 /* DKPopoverViewController.m */; };
 		981EF64A1F0489250029B36E /* DKAssetGroupListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 981EF6491F0489250029B36E /* DKAssetGroupListVC.m */; };
 		98881ADA1EFCE90D008B9B13 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881AD91EFCE90D008B9B13 /* main.m */; };
 		98881ADD1EFCE90D008B9B13 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881ADC1EFCE90D008B9B13 /* AppDelegate.m */; };
@@ -74,6 +75,8 @@
 		980185FE1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKImagePickerControllerDefaultUIDelegate.m; sourceTree = "<group>"; };
 		980186001F02065D0099173C /* DKAssetGroupDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAssetGroupDetailVC.h; sourceTree = "<group>"; };
 		980186011F02065D0099173C /* DKAssetGroupDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAssetGroupDetailVC.m; sourceTree = "<group>"; };
+		980629CE1F09DB89004B74C9 /* DKPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKPopoverViewController.h; sourceTree = "<group>"; };
+		980629CF1F09DB89004B74C9 /* DKPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKPopoverViewController.m; sourceTree = "<group>"; };
 		981EF6481F0489250029B36E /* DKAssetGroupListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAssetGroupListVC.h; sourceTree = "<group>"; };
 		981EF6491F0489250029B36E /* DKAssetGroupListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAssetGroupListVC.m; sourceTree = "<group>"; };
 		98881AD51EFCE90D008B9B13 /* DKImagePickerControllerDemo_OC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DKImagePickerControllerDemo_OC.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +141,8 @@
 				980185DF1F00BA8B0099173C /* DKImageResource.h */,
 				980185E01F00BA8B0099173C /* DKImageResource.m */,
 				980185E81F00E4880099173C /* DKImagePickerController.bundle */,
+				980629CE1F09DB89004B74C9 /* DKPopoverViewController.h */,
+				980629CF1F09DB89004B74C9 /* DKPopoverViewController.m */,
 			);
 			path = DKImagePickerController;
 			sourceTree = "<group>";
@@ -439,6 +444,7 @@
 				980185ED1F00E5F00099173C /* DKAssetGroupDetailBaseCell.m in Sources */,
 				98881ADD1EFCE90D008B9B13 /* AppDelegate.m in Sources */,
 				98881ADA1EFCE90D008B9B13 /* main.m in Sources */,
+				980629D01F09DB89004B74C9 /* DKPopoverViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

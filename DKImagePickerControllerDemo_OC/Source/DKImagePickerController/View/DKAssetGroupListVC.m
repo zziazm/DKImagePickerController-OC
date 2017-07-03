@@ -11,6 +11,7 @@
 #import "DKImageManager.h"
 #import "DKGroupDataManager.h"
 #import "DKAssetGroup.h"
+#import "DKPopoverViewController.h"
 static NSString * DKImageGroupCellIdentifier = @"DKImageGroupCellIdentifier";
 
 @interface DKAssetGroupSeparator : UIView
@@ -70,7 +71,7 @@ static NSString * DKImageGroupCellIdentifier = @"DKImageGroupCellIdentifier";
         _customSelectedBackgroundView = [UIView new];
         UIImageView * selectedFlag = [[UIImageView alloc] initWithImage:[DKImageResource blueTickImage]];
         selectedFlag.frame = CGRectMake(_customSelectedBackgroundView.bounds.size.width - selectedFlag.bounds.size.width - 20,(_customSelectedBackgroundView.bounds.size.width - selectedFlag.bounds.size.width) / 2, selectedFlag.bounds.size.width, selectedFlag.bounds.size.height);
-        selectedFlag.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        selectedFlag.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
         [_customSelectedBackgroundView addSubview:selectedFlag];
     }
     
@@ -81,7 +82,7 @@ static NSString * DKImageGroupCellIdentifier = @"DKImageGroupCellIdentifier";
     if (!_customSeparator ) {
         _customSeparator = [[DKAssetGroupSeparator alloc] initWithFrame:CGRectMake(10, self.bounds.size.height - 1, self.bounds.size.width, 0.5)];
         _customSeparator.backgroundColor = [UIColor lightGrayColor];
-        _customSeparator.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _customSeparator.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     }
     return _customSeparator;
 }
@@ -235,7 +236,11 @@ static NSString * DKImageGroupCellIdentifier = @"DKImageGroupCellIdentifier";
     cell.totalCountLabel.text = [NSString stringWithFormat:@"%ld", (long)group.totalCount];
     return cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [DKPopoverViewController dismissPopoverViewController];
+    self.selectedGroup = _groups[indexPath.row];
+    self.selectedGroupDidChangeBlock(self.selectedGroup);
+}
 
 /*
 // Override to support conditional editing of the table view.
