@@ -284,15 +284,50 @@
     }
     return shouldSelect;
 }
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if ([self isCameraCell:indexPath]) {
-        
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+//            self.imagePickerController
+        }
     }else{
-        NSArray * a = [[[DKImageManager shareInstance] groupDataManager] assets];
+       
         DKAsset * selectedAsset =  ((DKAssetGroupDetailBaseCell *)[collectionView cellForItemAtIndexPath:indexPath]).asset;
         [self.imagePickerController selectImage:selectedAsset];
         ((DKAssetGroupDetailBaseCell *)[collectionView cellForItemAtIndexPath:indexPath]).index = self.imagePickerController.selectedAssets.count - 1;
     }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if ([self isCameraCell:indexPath]) {
+        [self collectionView:collectionView didSelectItemAtIndexPath:indexPath];
+        return;
+    }
+    
+    DKAsset * removedAsset = ((DKAssetGroupDetailBaseCell *) [collectionView cellForItemAtIndexPath:indexPath]).asset;
+    if (!removedAsset) {
+        return;
+    }
+    NSInteger removedIndex= [self.imagePickerController.selectedAssets indexOfObject:removedAsset];
+    NSArray <NSIndexPath *> * indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems;
+    NSArray <NSIndexPath *> * indexPathsForVisibleItems = collectionView.indexPathsForVisibleItems;
+    NSMutableSet *set1 = [NSMutableSet setWithArray: indexPathsForVisibleItems];
+    NSSet *set2 = [NSSet setWithArray: indexPathsForSelectedItems];
+    [set1 intersectSet: set2];
+    NSArray *resultArray = [set1 allObjects];
+    for (NSIndexPath * selectedIndexPath in resultArray) {
+       DKAssetGroupDetailBaseCell * selectedCell = (DKAssetGroupDetailBaseCell *)[collectionView cellForItemAtIndexPath:selectedIndexPath];
+        DKAsset * selectedCellAsset = selectedCell.asset;
+        NSInteger selectedIndex = [self.imagePickerController.selectedAssets indexOfObject:selectedCellAsset];
+        if (selectedIndex > removedIndex) {
+            selectedCell.index = selectedCell.index - 1;
+        }
+    }
+    
+    [self.imagePickerController deselectImage:removedAsset];
+    
+    
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

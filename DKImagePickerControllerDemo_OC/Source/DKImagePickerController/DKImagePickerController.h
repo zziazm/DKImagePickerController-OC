@@ -125,4 +125,6 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) BOOL showsCancelButton;
 - (void)selectImage:(DKAsset *)asset;
 - (void)done;
+
+- (void)deselectImage:(DKAsset *)asset;
 @end

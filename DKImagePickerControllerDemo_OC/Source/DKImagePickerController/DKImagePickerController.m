@@ -11,6 +11,7 @@
 #import "DKImageManager.h"
 #import "DKAssetGroupDetailVC.h"
 #import "DKGroupDataManager.h"
+#import "DKAsset.h"
 @interface DKImagePickerController ()
 @property (nonatomic, assign) BOOL hasInitialized;
 @property (nonatomic, strong) PHFetchOptions * assetFetchOptions;
@@ -232,6 +233,92 @@
             [((DKAssetGroupDetailVC *)vc).collectionView reloadData];
         }
     }
+}
+
+- (void)deselectImage:(DKAsset *)asset{
+    [self.selectedAssets removeObject:asset];
+    [self.UIDelegate imagePickerController:self didDeselectAssets:@[asset]];
+}
+
+- (void)presentCamera{
+    
+}
+
+- (UIViewController *)createCamera{
+    void(^didCancel)() = ^{
+        if (self.sourceType == DKImagePickerControllerSourceCameraType) {
+            if (self.presentedViewController != nil) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            [self dismissAnimated:YES];
+        }else{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    };
+    
+    void (^ didFinishCapturingImage)(UIImage *) = ^(UIImage * image){
+        __block NSString * newImageIdentifier;
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+          PHAssetChangeRequest * assetRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+            newImageIdentifier = assetRequest.placeholderForCreatedAsset.localIdentifier;
+            
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) {
+                    PHAsset * newAsset = [[PHAsset fetchAssetsWithLocalIdentifiers:@[newImageIdentifier] options:nil] firstObject];
+                    if (newAsset) {
+                        if (self.presentedViewController != nil) {
+                            [self dismissViewControllerAnimated:YES completion:nil];
+                        }
+                        
+                        [self selectImage:[[DKAsset alloc] initWithOriginalAsset:newAsset]];
+                    }
+                    
+                }else{
+                    if (self.sourceType != DKImagePickerControllerSourceCameraType) {
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    }
+                    [self selectImage:[[DKAsset alloc] initWithImage:image]];
+                }
+            });
+        }];
+    };
+    
+    void(^ didFinishCapturingVideo) (NSURL *) = ^(NSURL * videoURL){
+        __block NSString * newVideoIdentifier;
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+           PHAssetChangeRequest * assetRequest = [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:videoURL];
+            newVideoIdentifier = assetRequest.placeholderForCreatedAsset.localIdentifier;
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) {
+                   PHAsset * newAsset = [[PHAsset fetchAssetsWithLocalIdentifiers:@[newVideoIdentifier] options:nil] firstObject];
+                    
+                    if (self.sourceType != DKImagePickerControllerSourceCameraType || self.viewControllers.count == 0) {
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    }
+                    
+                    [self selectImage:[[DKAsset alloc] initWithOriginalAsset:newAsset]];
+                }else{
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
+            });
+        }];
+    };
+    
+    return nil;
+    
+}
+
+- (void)dismiss{
+    [self dismissAnimated:YES];
+}
+- (void)dismissAnimated:(BOOL)flag{
+    [self.presentingViewController dismissViewControllerAnimated:flag completion:^{
+        if (self.didCancel) {
+            self.didCancel();
+        }
+    }];
 }
 /*
 #pragma mark - Navigation

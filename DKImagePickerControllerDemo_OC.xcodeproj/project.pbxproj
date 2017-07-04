@@ -33,6 +33,7 @@
 		98881B141EFCF324008B9B13 /* DKImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881B131EFCF324008B9B13 /* DKImageManager.m */; };
 		98881B171EFCFD91008B9B13 /* DKGroupDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881B161EFCFD91008B9B13 /* DKGroupDataManager.m */; };
 		98881B1A1EFCFDDE008B9B13 /* DKAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881B191EFCFDDE008B9B13 /* DKAsset.m */; };
+		989163711F0B68E8002E8DC3 /* DKCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 989163701F0B68E8002E8DC3 /* DKCamera.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,8 @@
 		98881B161EFCFD91008B9B13 /* DKGroupDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKGroupDataManager.m; sourceTree = "<group>"; };
 		98881B181EFCFDDE008B9B13 /* DKAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAsset.h; sourceTree = "<group>"; };
 		98881B191EFCFDDE008B9B13 /* DKAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAsset.m; sourceTree = "<group>"; };
+		9891636F1F0B68E8002E8DC3 /* DKCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKCamera.h; sourceTree = "<group>"; };
+		989163701F0B68E8002E8DC3 /* DKCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKCamera.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +182,8 @@
 		980185E51F00E3AF0099173C /* DKCamera */ = {
 			isa = PBXGroup;
 			children = (
+				9891636F1F0B68E8002E8DC3 /* DKCamera.h */,
+				989163701F0B68E8002E8DC3 /* DKCamera.m */,
 				980185E61F00E3E70099173C /* DKCameraResource.bundle */,
 			);
 			path = DKCamera;
@@ -435,6 +440,7 @@
 				980185E11F00BA8B0099173C /* DKImageResource.m in Sources */,
 				980185FC1F0101010099173C /* DKImagePickerController.m in Sources */,
 				980185FF1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m in Sources */,
+				989163711F0B68E8002E8DC3 /* DKCamera.m in Sources */,
 				98881B1A1EFCFDDE008B9B13 /* DKAsset.m in Sources */,
 				980185F61F00EF090099173C /* DKAssetGroupDetailVideoCell.m in Sources */,
 				980186021F02065D0099173C /* DKAssetGroupDetailVC.m in Sources */,
