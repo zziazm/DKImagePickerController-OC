@@ -8,11 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "DKImagePickerController.h"
-
+#import "DKCamera.h"
 @interface DKImagePickerControllerDefaultUIDelegate : NSObject<DKImagePickerControllerUIDelegate>
 @property (nonatomic, weak) DKImagePickerController * imagePickerController;
 @property (nonatomic, strong) UIButton * doneButton;
 
 - (UIButton *)createDoneButtonIfNeeded;
+
+@end
+
+@interface DKImagePickerControllerCamera : DKCamera<DKImagePickerControllerCameraProtocol>
 
 @end

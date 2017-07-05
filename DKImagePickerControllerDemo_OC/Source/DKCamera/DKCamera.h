@@ -55,7 +55,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) CMMotionManager * motionManager;
 @property (nonatomic, strong) UIButton * cameraSwitchButton;
 @property (nonatomic, strong) UIButton * captureButton;
-
+@property (nonatomic, assign) BOOL shouldAutorotate;
 + (BOOL)isAvailable;
 + (void)checkCameraPermission:(void(^)(BOOL granted))handler;
 

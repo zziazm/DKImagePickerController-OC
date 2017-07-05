@@ -288,7 +288,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if ([self isCameraCell:indexPath]) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-//            self.imagePickerController
+            [self.imagePickerController presentCamera];
         }
     }else{
        

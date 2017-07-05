@@ -34,6 +34,7 @@
 		98881B171EFCFD91008B9B13 /* DKGroupDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881B161EFCFD91008B9B13 /* DKGroupDataManager.m */; };
 		98881B1A1EFCFDDE008B9B13 /* DKAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881B191EFCFDDE008B9B13 /* DKAsset.m */; };
 		989163711F0B68E8002E8DC3 /* DKCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 989163701F0B68E8002E8DC3 /* DKCamera.m */; };
+		989163741F0CCA97002E8DC3 /* DKPermissionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 989163731F0CCA97002E8DC3 /* DKPermissionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,8 @@
 		98881B191EFCFDDE008B9B13 /* DKAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAsset.m; sourceTree = "<group>"; };
 		9891636F1F0B68E8002E8DC3 /* DKCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKCamera.h; sourceTree = "<group>"; };
 		989163701F0B68E8002E8DC3 /* DKCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKCamera.m; sourceTree = "<group>"; };
+		989163721F0CCA97002E8DC3 /* DKPermissionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKPermissionView.h; sourceTree = "<group>"; };
+		989163731F0CCA97002E8DC3 /* DKPermissionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKPermissionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +163,8 @@
 				980186011F02065D0099173C /* DKAssetGroupDetailVC.m */,
 				981EF6481F0489250029B36E /* DKAssetGroupListVC.h */,
 				981EF6491F0489250029B36E /* DKAssetGroupListVC.m */,
+				989163721F0CCA97002E8DC3 /* DKPermissionView.h */,
+				989163731F0CCA97002E8DC3 /* DKPermissionView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -443,6 +448,7 @@
 				989163711F0B68E8002E8DC3 /* DKCamera.m in Sources */,
 				98881B1A1EFCFDDE008B9B13 /* DKAsset.m in Sources */,
 				980185F61F00EF090099173C /* DKAssetGroupDetailVideoCell.m in Sources */,
+				989163741F0CCA97002E8DC3 /* DKPermissionView.m in Sources */,
 				980186021F02065D0099173C /* DKAssetGroupDetailVC.m in Sources */,
 				98881B171EFCFD91008B9B13 /* DKGroupDataManager.m in Sources */,
 				98881B141EFCF324008B9B13 /* DKImageManager.m in Sources */,

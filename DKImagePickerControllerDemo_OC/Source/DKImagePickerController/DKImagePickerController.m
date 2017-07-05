@@ -241,7 +241,7 @@
 }
 
 - (void)presentCamera{
-    
+    [self presentViewController:[self createCamera] animated:YES completion:nil];
 }
 
 - (UIViewController *)createCamera{
@@ -306,7 +306,11 @@
         }];
     };
     
-    return nil;
+    DKImagePickerControllerCamera * camera = (DKImagePickerControllerCamera *) [self.UIDelegate imagePickerControllerCreateCamera:self];
+    [camera setDidCancel:didCancel];
+    [camera setDidFinishCapturingImage:didFinishCapturingImage];
+    [camera setDidFinishCapturingVideo:didFinishCapturingVideo];
+    return camera;
     
 }
 

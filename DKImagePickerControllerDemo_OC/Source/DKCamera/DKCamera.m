@@ -8,6 +8,9 @@
 
 #import "DKCamera.h"
 
+
+
+
 @implementation NSBundle(DKCameraExtension)
 
 + (NSBundle *)cameraBundle{
@@ -52,9 +55,11 @@
 
 
 @interface DKCamera ()
+
 @property (nonatomic, assign) CGFloat beginZoomScale;
 @property (nonatomic, assign) CGFloat zoomScale;
 @property (nonatomic, assign) BOOL isStopped;
+@property (nonatomic, strong) UIView * focusView;
 
 #warning weak
 @property (nonatomic, weak) AVCaptureStillImageOutput * stillImageOutput;
@@ -255,8 +260,7 @@
                     }else{
                         NSLog(@"error while capturing still image %@", error.localizedDescription);
                     }
-                    
-                    
+
                 }];
             }
         });
@@ -264,9 +268,123 @@
 }
 
 - (void)handleZoom:(UIPinchGestureRecognizer *)gesture{
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        self.beginZoomScale = self.zoomScale;
+    }else if (gesture.state == UIGestureRecognizerStateChanged){
+        self.zoomScale = MIN(4.0, MAX(1.0, self.beginZoomScale * gesture.scale));
+        [CATransaction begin];
+        [self.previewLayer setAffineTransform:CGAffineTransformMakeScale(self.zoomScale, self.zoomScale)];
+        [CATransaction commit];
+    }
+}
+
+- (void)handleFocus:(UITapGestureRecognizer *)gesture{
+    if (self.currentDevice && self.currentDevice.isFocusPointOfInterestSupported) {
+        CGPoint touchPoint = [gesture locationInView:self.view];
+        [self focusAtTouchPoint:touchPoint];
+    }
+}
+
+- (void)focusAtTouchPoint:(CGPoint)touchPoint{
+    if (self.currentDevice == nil || self.currentDevice.isFlashAvailable == NO) {
+        return;
+    }
+    CGPoint focusPoint = [self.previewLayer captureDevicePointOfInterestForPoint:touchPoint];
+    [self showFocusViewAtPoint:touchPoint];
+    
+    if (self.currentDevice) {
+        [self.currentDevice lockForConfiguration:nil];
+        self.currentDevice.focusPointOfInterest = focusPoint;
+        self.currentDevice.exposurePointOfInterest = focusPoint;
+        
+        self.currentDevice.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+        
+        if ([self.currentDevice isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+            self.currentDevice.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
+        }
+        
+        [self.currentDevice unlockForConfiguration];
+    }
+    
+    
+    
+
+}
+
+- (void)showFocusViewAtPoint:(CGPoint)touchPoint{
+    
+    
+    self.focusView.transform = CGAffineTransformIdentity;
+    self.focusView.center = touchPoint;
+    
+    [self.view addSubview:self.focusView];
+    [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:1.1 options:UIViewAnimationOptionLayoutSubviews animations:^{
+        self.focusView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.6, 0.6);
+    } completion:^(BOOL finished) {
+        [self.focusView removeFromSuperview];
+    } ];
+    
+    
+}
+- (UIView *)focusView{
+    if (!_focusView) {
+        _focusView = [UIView new];
+        CGFloat diameter = 100.0;
+        _focusView.bounds = CGRectMake(0, 0, diameter, diameter);
+        _focusView.layer.borderWidth = 2;
+        _focusView.layer.cornerRadius = diameter / 2;
+        _focusView.layer.borderColor = [UIColor whiteColor].CGColor;
+    }
+    return _focusView;
+}
+
+
+- (void)switchCamera{
+    self.currentDevice = self.currentDevice == self.captureDeviceRear ? self.captureDeviceFront : self.captureDeviceRear;
+    [self setupCurrentDevice];
     
 }
 
+- (void)setupCurrentDevice{
+    if (self.currentDevice){
+        if (self.currentDevice.isFlashAvailable) {
+            self.flashButton.hidden = NO;
+            self.flashMode = [self flashModeFromUserDefaults];
+            
+            
+        }else{
+            self.flashButton.hidden = YES;
+        }
+        
+        for (AVCaptureInput * oldInput in self.captureSession.inputs) {
+            [self.captureSession removeInput:oldInput];
+        }
+        
+        AVCaptureDeviceInput * frontInput =  [AVCaptureDeviceInput deviceInputWithDevice:self.currentDevice error:nil];
+        
+        if ([self.captureSession canAddInput:frontInput]) {
+            [self.captureSession addInput:frontInput];
+        }
+        
+        [self.currentDevice lockForConfiguration:nil];
+        if ([self.currentDevice isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+            self.currentDevice.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+        }
+        
+        if ([self.currentDevice isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+            self.currentDevice.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
+        }
+        
+        
+        [self.currentDevice unlockForConfiguration];
+        
+    }
+}
+
+- (AVCaptureFlashMode)flashModeFromUserDefaults{
+   AVCaptureFlashMode rawValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"DKCamera.flashMode"];
+    return rawValue;
+}
 
 + (AVCaptureVideoOrientation)toAVCaptureVideoOrientation:(UIDeviceOrientation)orientation{
     switch (orientation) {
@@ -289,6 +407,112 @@
     }
 }
 
+- (void)switchFlashMode{
+    switch (self.flashMode) {
+        case AVCaptureFlashModeAuto:
+            self.flashMode = AVCaptureFlashModeOff;
+            break;
+        case AVCaptureFlashModeOn:
+            self.flashMode = AVCaptureFlashModeAuto;
+            
+        case AVCaptureFlashModeOff:
+            self.flashMode = AVCaptureFlashModeOn;
+        default:
+            break;
+    }
+}
+
+-(void)    captureOutput:(AVCaptureOutput *)captureOutput
+didOutputMetadataObjects:(NSArray *)metadataObjects
+                    from:(AVCaptureConnection *)connection
+{
+    if (self.onFaceDetection) {
+        self.onFaceDetection(metadataObjects);
+    }
+}
+
+- (BOOL)shouldAutorotate{
+    return NO;
+}
+
+- (void)setupMotionManager{
+    self.motionManager.accelerometerUpdateInterval = 0.5;
+    self.motionManager.gyroUpdateInterval = 0.5;
+}
+
+- (void)initialOriginalOrientationForOrientation{
+    self.originalOrientation = [DKCamera toDeviceOrientation:[UIApplication sharedApplication].statusBarOrientation];
+    
+    if (self.previewLayer.connection) {
+        self.previewLayer.connection.videoOrientation = [DKCamera toAVCaptureVideoOrientation:self.originalOrientation];
+    }
+}
+
+- (void)updateContentLayoutForCurrentOrientation{
+    CGFloat newAngle = [DKCamera toAngleRelativeToPortrait:self.currentOrientation] - [DKCamera toAngleRelativeToPortrait:self.originalOrientation];
+    
+    if (self.allowsRotate) {
+        CGSize contentViewNewSize;
+        CGFloat width = self.view.bounds.size.width;
+        CGFloat height = self.view.bounds.size.height;
+        if (UIDeviceOrientationIsLandscape(self.currentOrientation)) {
+            contentViewNewSize = CGSizeMake(MAX(width, height), MIN(width, height));
+        }else{
+            contentViewNewSize = CGSizeMake(MIN(width, height), MAX(width, height));
+        }
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            self.contentView.bounds = CGRectMake(0, 0, contentViewNewSize.width, contentViewNewSize.height);
+            self.contentView.transform = CGAffineTransformMakeRotation(newAngle);
+        }];
+    }else{
+      CGAffineTransform rotateAffineTransform = CGAffineTransformRotate(CGAffineTransformIdentity, newAngle);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.flashButton.transform = rotateAffineTransform;
+            self.cameraSwitchButton.transform = rotateAffineTransform;
+        }];
+    }
+}
+
++ (UIDeviceOrientation)toDeviceOrientation:(UIInterfaceOrientation)orientation{
+    switch (orientation) {
+        case UIInterfaceOrientationPortrait:
+            return UIDeviceOrientationPortrait;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            return UIDeviceOrientationPortraitUpsideDown;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            return UIDeviceOrientationLandscapeLeft;
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            return UIDeviceOrientationLandscapeRight;
+            break;
+        default:
+            return UIDeviceOrientationPortrait;
+            break;
+    }
+}
+
++ (CGFloat)toAngleRelativeToPortrait:(UIDeviceOrientation)orientation{
+    switch (orientation) {
+        case UIDeviceOrientationPortrait:
+            return 0;
+            break;
+        case UIDeviceOrientationPortraitUpsideDown:
+            return M_PI;
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            return -M_PI_2;
+            break;
+        case UIDeviceOrientationLandscapeLeft:
+            return M_PI_2;
+            break;
+        default:
+            return 0.0;
+            break;
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

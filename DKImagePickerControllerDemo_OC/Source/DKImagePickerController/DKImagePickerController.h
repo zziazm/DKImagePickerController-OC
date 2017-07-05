@@ -12,6 +12,17 @@
 @class DKImagePickerController;
 @class DKAssetGroupDetailBaseCell;
 @class DKImagePickerControllerDefaultUIDelegate;
+
+@protocol DKImagePickerControllerCameraProtocol <NSObject>
+
+- (void)setDidCancel:(void(^)())block;
+- (void)setDidFinishCapturingImage:(void(^)(UIImage * image))block;
+- (void)setDidFinishCapturingVideo:(void(^)(NSURL * videoURL))videoURL;
+
+@end
+
+
+
 @protocol DKImagePickerControllerUIDelegate <NSObject>
 
 
@@ -42,6 +53,13 @@
 - (Class)imagePickerControllerCollectionImageCell;
 - (Class)imagePickerControllerCollectionCameraCell;
 - (Class)imagePickerControllerCollectionVideoCell;
+
+
+- (UIViewController *)imagePickerControllerCreateCamera:(DKImagePickerController *)imagePickerController;
+- (UIViewController *)imagePickerControllerCreateCamera:(DKImagePickerController *)imagePickerController
+                                              didCancel:(void(^)())didCancel
+                                didFinishCapturingImage:(void(^)(UIImage * image))didFinishCapturingImage
+                                didFinishCapturingVideo:(void(^)(NSURL * videoURL))didFinishCapturingVideo;
 
 @end
 
@@ -125,6 +143,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) BOOL showsCancelButton;
 - (void)selectImage:(DKAsset *)asset;
 - (void)done;
+- (void)presentCamera;
 
 - (void)deselectImage:(DKAsset *)asset;
 @end

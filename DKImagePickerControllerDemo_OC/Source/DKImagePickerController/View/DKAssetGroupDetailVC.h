@@ -17,5 +17,4 @@
 @interface DKAssetGroupDetailVC : UIViewController<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong) UICollectionView * collectionView;
 @property (nonatomic, weak) DKImagePickerController * imagePickerController;
-
 @end

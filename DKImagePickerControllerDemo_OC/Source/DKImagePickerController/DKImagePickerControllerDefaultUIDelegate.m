@@ -12,6 +12,7 @@
 #import "DKAssetGroupDetailCameraCell.h"
 #import "DKAssetGroupDetailVideoCell.h"
 #import "DKAssetGroupDetailImageCell.h"
+#import "DKPermissionView.h"
 @implementation DKImagePickerControllerDefaultUIDelegate
 - (UIButton *)createDoneButtonIfNeede{
     if (!self.doneButton) {
@@ -83,5 +84,39 @@
 }
 - (UIView *)imagePickerControllerFooterView:(DKImagePickerController *)imagePickerController{
     return  nil;
+}
+
+- (UIViewController *)imagePickerControllerCreateCamera:(DKImagePickerController *)imagePickerController{
+    DKImagePickerControllerCamera  * camera = [DKImagePickerControllerCamera new];
+    [self checkCameraPermission:camera];
+    return camera;
+}
+- (void)checkCameraPermission:(DKCamera *)camera{
+    [DKCamera checkCameraPermission:^(BOOL granted) {
+        if (granted) {
+            camera.cameraOverlayView = nil;
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+               DKPermissionView * permissionView = [DKPermissionView permissionView:DKImagePickerControllerSourceCameraType];
+                
+                camera.cameraOverlayView = permissionView;
+            });
+        }
+    }];
+}
+
+@end
+
+
+@implementation DKImagePickerControllerCamera
+
+- (void)setDidCancel:(void(^)())block{
+    super.didCancel = block;
+}
+- (void)setDidFinishCapturingImage:(void(^)(UIImage * image))block{
+    super.didFinishCapturingImage = block;
+}
+- (void)setDidFinishCapturingVideo:(void(^)(NSURL * videoURL))videoURL{
+    
 }
 @end
