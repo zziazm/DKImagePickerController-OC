@@ -8,9 +8,27 @@
 
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
+#import "DKBaseManager.h"
 @class DKAssetGroup;
 @class DKAsset;
-@interface DKGroupDataManager : NSObject
+
+
+
+@protocol DKGroupDataManagerObserver <NSObject>
+
+@optional
+- (void)groupDidUpdate:(NSString *)groupId;
+- (void)groupDidRemove:(NSString *)groupId;
+- (void)group:(NSString *)groupId didRemoveAssets:(NSArray <DKAsset *> *)assets;
+- (void)group:(NSString *)groupId didInsertAssets:(NSArray <DKAsset *> *)assets;
+
+- (void)groupDidUpdateComplete:(NSString *)groupId;
+
+@end
+
+
+
+@interface DKGroupDataManager : DKBaseManager<PHPhotoLibraryChangeObserver>
 
 @property (nonatomic, strong) NSMutableArray <NSString *>* groupIds;
 @property (nonatomic, strong) NSMutableDictionary <NSString * , DKAssetGroup *>* groups;

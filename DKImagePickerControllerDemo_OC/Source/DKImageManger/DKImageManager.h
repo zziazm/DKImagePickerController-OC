@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#
+#import "DKBaseManager.h"
 #import <Photos/Photos.h>
 @class DKAsset;
 @class DKGroupDataManager;
-@interface DKImageManager : NSObject
+@interface DKImageManager : DKBaseManager 
 
 @property (nonatomic, strong) DKGroupDataManager * groupDataManager;
 

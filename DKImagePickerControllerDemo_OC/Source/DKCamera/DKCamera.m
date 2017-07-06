@@ -151,9 +151,11 @@
     
     
 }
+
 - (void)updateFlashModeToUserDefautls:(AVCaptureFlashMode)flashMode{
     [[NSUserDefaults standardUserDefaults] setObject:@(flashMode) forKey:@"DKCamera.flashMode"];
 }
+
 - (void)updateFlashMode{
     if (self.currentDevice && self.currentDevice.isFlashAvailable && [self.currentDevice isFlashModeSupported:self.flashMode]) {
         [self.currentDevice lockForConfiguration:nil];
@@ -433,9 +435,8 @@
                             CGImageRef cropCGImage = CGImageCreateWithImageInRect(takenCGImage, cropRect);
                             
                             UIImage * cropTakenImage = [UIImage imageWithCGImage:cropCGImage scale:1 orientation:takenImage.imageOrientation];
+                            self.didFinishCapturingImage(cropTakenImage);
                             self.captureButton.enabled = YES;
-                            
-                            
                         }
                     }else{
                         NSLog(@"error while capturing still image %@", error.localizedDescription);
@@ -580,7 +581,6 @@
         case UIDeviceOrientationLandscapeLeft:
             return AVCaptureVideoOrientationLandscapeRight;
             break;
-            
         default:
             return AVCaptureVideoOrientationPortrait;
             break;
@@ -594,9 +594,10 @@
             break;
         case AVCaptureFlashModeOn:
             self.flashMode = AVCaptureFlashModeAuto;
-            
+            break;
         case AVCaptureFlashModeOff:
             self.flashMode = AVCaptureFlashModeOn;
+            break;
         default:
             break;
     }

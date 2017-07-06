@@ -19,6 +19,7 @@
 #import "DKAssetGroupListVC.h"
 #import "DKAssetGroupDetailCameraCell.h"
 #import "DKPopoverViewController.h"
+#import "DKPermissionView.h"
 @implementation UICollectionView(DKExtension)
 
 - (NSArray <NSIndexPath *>*)indexPathsForElementsInRect:(CGRect)rect
@@ -47,7 +48,7 @@
 @end
 
 
-@interface DKAssetGroupDetailVC ()
+@interface DKAssetGroupDetailVC ()<DKGroupDataManagerObserver>
 @property (nonatomic, strong) UIButton * selectGroupButton;
 @property (nonatomic, copy) NSString * selectedGroupId;
 @property (nonatomic, assign) BOOL hidesCamera;
@@ -138,11 +139,15 @@
 }
 
 - (void)photoDenied{
+   [self.view addSubview: [DKPermissionView permissionView:DKImagePickerControllerSourcePhotoType]];
     
+    self.view.backgroundColor = [UIColor blackColor];
+    self.collectionView.hidden = YES;
 }
 
 - (void)setup{
     [self resetCachedAssets];
+    [[[DKImageManager shareInstance] groupDataManager] addObserver:self];
     self.groupListVC = [[DKAssetGroupListVC alloc] initWithSelectedGroupDidChangeBlock:^(NSString *groupId) {
         [self selectAssetGroup:groupId];
     } defaultAssetGroup:self.imagePickerController.defaultAssetGroup];
@@ -287,6 +292,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if ([self isCameraCell:indexPath]) {
+        NSLog(@"%@", [[[DKImageManager shareInstance] groupDataManager] observers]);
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             [self.imagePickerController presentCamera];
         }
@@ -326,6 +332,39 @@
     
     [self.imagePickerController deselectImage:removedAsset];
     
+    
+    
+}
+
+#pragma mark -- DKGroupDataManagerObserver
+- (void)groupDidUpdate:(NSString *)groupId{
+    if ([self.selectedGroupId isEqualToString:groupId]) {
+        [self updateTitleView];
+    }
+}
+
+
+- (void)group:(NSString *)groupId didRemoveAssets:(NSArray<DKAsset *> *)assets {
+    NSMutableArray * tem = @[].mutableCopy;
+    for (DKAsset * selectedAsset in self.imagePickerController.selectedAssets) {
+        for (DKAsset * removedAsset in assets) {
+            if ([selectedAsset isEqual:removedAsset]) {
+                [tem addObject:selectedAsset];
+            }
+        }
+    }
+    
+    for (DKAsset * asset in tem) {
+        [self.imagePickerController deselectImage:asset];
+    }
+}
+
+
+- (void)groupDidUpdateComplete:(NSString *)groupId{
+    if ([self.selectedGroupId isEqualToString:groupId]) {
+        [self resetCachedAssets];
+        [self.collectionView reloadData];
+    }
     
     
 }

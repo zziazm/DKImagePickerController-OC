@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @interface UICollectionView (DKExtension)
 - (NSArray <NSIndexPath *>*)indexPathsForElementsInRect:(CGRect)rect
                                             hidesCamera:(BOOL)hidesCamera;

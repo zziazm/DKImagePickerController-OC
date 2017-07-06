@@ -24,6 +24,18 @@
     return self;
 }
 
+- (void)dealloc{
+    [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
+}
+
+- (void)invalidate{
+    [self.groupIds removeAllObjects];
+    [self.groups removeAllObjects];
+    [self.assets removeAllObjects];
+    
+    [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
+}
+
 - (DKAssetGroup *)fetchGroupWithGroupId:(NSString *)groupId{
     return _groups[groupId];
 }
@@ -60,7 +72,7 @@
                
            }];
            
-//           [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:strongSelf];
+           [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:strongSelf];
            [strongSelf updatePartial:groups groupIds:groupIds completeBlock:completeBlock];
            
        });
@@ -141,5 +153,52 @@
     
     return group.fetchResult[group.totalCount - index - 1];
 }
+#pragma mark -- PHPhotoLibraryChangeObserver
 
+- (void)photoLibraryDidChange:(PHChange *)changeInstance{
+    for (DKAssetGroup * group in self.groups.allValues) {
+       
+        if ([changeInstance changeDetailsForObject:group.originalCollection]) {
+            PHObjectChangeDetails * changeDetails = [changeInstance changeDetailsForObject:group.originalCollection];
+            if (changeDetails.objectWasDeleted) {
+                [self.groups removeObjectForKey:group.groupId];
+                [self notifyObserversWithSelector:@selector(groupDidRemove:) object:group.groupId];
+                continue;
+            }
+            
+            if ([changeDetails.objectAfterChanges isKindOfClass:[PHAssetCollection class]]) {
+                PHAssetCollection * objectAfterChanges = changeDetails.objectAfterChanges;
+                [self updateGroup:self.groups[group.groupId] collection:objectAfterChanges];
+                [self notifyObserversWithSelector:@selector(groupDidUpdate:) object:group.groupId];
+            }
+        }
+        
+        if ([changeInstance changeDetailsForFetchResult:group.fetchResult]) {
+            PHFetchResultChangeDetails * changeDetails = [changeInstance changeDetailsForFetchResult:group.fetchResult];
+            NSMutableArray * removedAssets = @[].mutableCopy;
+            [changeDetails.removedObjects enumerateObjectsUsingBlock:^(PHAsset *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [removedAssets addObject: [[DKAsset alloc] initWithOriginalAsset:obj]];
+            }];
+            
+            if (removedAssets.count > 0) {
+                [self notifyObserversWithSelector:@selector(group:didRemoveAssets:) object:group.groupId objectTwo:removedAssets];
+            }
+            
+            [self updateGroup:group fetchResult:changeDetails.fetchResultAfterChanges];
+            
+ 
+            NSMutableArray * insertedAssets = @[].mutableCopy;
+            
+            [changeDetails.insertedObjects enumerateObjectsUsingBlock:^(PHAsset *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [insertedAssets addObject: [[DKAsset alloc] initWithOriginalAsset:obj]];
+            }];
+        
+            if (insertedAssets.count > 0) {
+                [self notifyObserversWithSelector:@selector(group:didInsertAssets:) object:group.groupId objectTwo:insertedAssets];
+            }
+            
+            [self notifyObserversWithSelector:@selector(groupDidUpdateComplete:) object:group.groupId];
+        }
+    }
+}
 @end

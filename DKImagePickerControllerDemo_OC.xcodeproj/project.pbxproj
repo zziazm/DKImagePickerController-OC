@@ -35,6 +35,7 @@
 		98881B1A1EFCFDDE008B9B13 /* DKAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881B191EFCFDDE008B9B13 /* DKAsset.m */; };
 		989163711F0B68E8002E8DC3 /* DKCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 989163701F0B68E8002E8DC3 /* DKCamera.m */; };
 		989163741F0CCA97002E8DC3 /* DKPermissionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 989163731F0CCA97002E8DC3 /* DKPermissionView.m */; };
+		989163771F0E183F002E8DC3 /* DKBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 989163761F0E183F002E8DC3 /* DKBaseManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,8 @@
 		989163701F0B68E8002E8DC3 /* DKCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKCamera.m; sourceTree = "<group>"; };
 		989163721F0CCA97002E8DC3 /* DKPermissionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKPermissionView.h; sourceTree = "<group>"; };
 		989163731F0CCA97002E8DC3 /* DKPermissionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKPermissionView.m; sourceTree = "<group>"; };
+		989163751F0E183F002E8DC3 /* DKBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKBaseManager.h; sourceTree = "<group>"; };
+		989163761F0E183F002E8DC3 /* DKBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKBaseManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +275,8 @@
 		98881B0F1EFCF2E2008B9B13 /* DKImageManger */ = {
 			isa = PBXGroup;
 			children = (
+				989163751F0E183F002E8DC3 /* DKBaseManager.h */,
+				989163761F0E183F002E8DC3 /* DKBaseManager.m */,
 				98881B121EFCF324008B9B13 /* DKImageManager.h */,
 				98881B131EFCF324008B9B13 /* DKImageManager.m */,
 				98881B101EFCF2E2008B9B13 /* Data */,
@@ -443,6 +448,7 @@
 				980185F91F00F89A0099173C /* DKAssetGroupGridLayout.m in Sources */,
 				980185F01F00E8170099173C /* DKAssetGroupDetailCameraCell.m in Sources */,
 				980185E11F00BA8B0099173C /* DKImageResource.m in Sources */,
+				989163771F0E183F002E8DC3 /* DKBaseManager.m in Sources */,
 				980185FC1F0101010099173C /* DKImagePickerController.m in Sources */,
 				980185FF1F01068D0099173C /* DKImagePickerControllerDefaultUIDelegate.m in Sources */,
 				989163711F0B68E8002E8DC3 /* DKCamera.m in Sources */,

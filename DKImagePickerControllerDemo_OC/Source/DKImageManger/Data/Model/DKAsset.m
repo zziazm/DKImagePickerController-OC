@@ -36,11 +36,10 @@
 
 - (BOOL)isEqual:(id)object{
     if ([object isKindOfClass:[DKAsset class]]) {
-        return self.localIdentifier == ((DKAsset *)object).localIdentifier;
+        return [self.localIdentifier isEqualToString:((DKAsset *)object).localIdentifier];
     }else{
         return NO;
     }
-
 }
 
 
