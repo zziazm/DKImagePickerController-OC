@@ -9,7 +9,8 @@
 #import "ViewController.h"
 #import "DKImagePickerController.h"
 #import "DKAsset.h"
-@interface ViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@property (weak, nonatomic) IBOutlet UICollectionView *previewView;
 @property (nonatomic, copy) NSArray <DKAsset *>*assets;
 @end
 
@@ -29,6 +30,7 @@
     [_pickerController setDidSelectAssets:^(NSArray <DKAsset *>* assets){
         __strong typeof(self) strongSelf = weakSelf;
         strongSelf.assets = assets;
+        [strongSelf.previewView reloadData];
         
     }];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
@@ -62,6 +64,37 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark  -- UICollectionViewDelegate, UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return self.assets.count;
+}
 
+// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    DKAsset * asset = self.assets[indexPath.row];
+    
+    UICollectionViewCell * cell;
+    UIImageView * imageView;
+    
+    if (asset.isVideo) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellVideo" forIndexPath:indexPath];
+        imageView = [cell viewWithTag:1];
+    }else{
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellImage" forIndexPath:indexPath];
+        imageView = [cell viewWithTag:1];
 
+    }
+    
+    UICollectionViewFlowLayout * layout = (UICollectionViewFlowLayout *)collectionView.collectionViewLayout;
+    
+    NSInteger tag = indexPath.row + 1;
+    cell.tag = tag;
+    [asset fetchImageWithSize:layout.itemSize completeBlock:^(UIImage *image, NSDictionary *info) {
+        if (cell.tag == tag) {
+            imageView.image = image;
+        }
+    }];
+    return cell;
+    
+}
 @end
