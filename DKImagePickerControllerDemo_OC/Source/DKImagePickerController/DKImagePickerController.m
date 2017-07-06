@@ -307,16 +307,18 @@
     };
     
     DKImagePickerControllerCamera * camera = (DKImagePickerControllerCamera *) [self.UIDelegate imagePickerControllerCreateCamera:self];
+
     [camera setDidCancel:didCancel];
     [camera setDidFinishCapturingImage:didFinishCapturingImage];
     [camera setDidFinishCapturingVideo:didFinishCapturingVideo];
-    return camera;
     
+    return camera;
 }
 
 - (void)dismiss{
     [self dismissAnimated:YES];
 }
+
 - (void)dismissAnimated:(BOOL)flag{
     [self.presentingViewController dismissViewControllerAnimated:flag completion:^{
         if (self.didCancel) {

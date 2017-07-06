@@ -91,6 +91,7 @@
     [self checkCameraPermission:camera];
     return camera;
 }
+
 - (void)checkCameraPermission:(DKCamera *)camera{
     [DKCamera checkCameraPermission:^(BOOL granted) {
         if (granted) {
@@ -98,7 +99,6 @@
         }else{
             dispatch_async(dispatch_get_main_queue(), ^{
                DKPermissionView * permissionView = [DKPermissionView permissionView:DKImagePickerControllerSourceCameraType];
-                
                 camera.cameraOverlayView = permissionView;
             });
         }

@@ -11,6 +11,36 @@
 
 
 
+
+
+@interface DKCaptureButton : UIButton
+
+@end
+
+@implementation DKCaptureButton
+
+- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event{
+    self.backgroundColor = [UIColor whiteColor];
+    return  YES;
+}
+
+
+- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event   {
+    self.backgroundColor = [UIColor whiteColor];
+    return  YES;
+
+}
+
+- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event{
+    self.backgroundColor = nil;
+}
+
+- (void)cancelTrackingWithEvent:(UIEvent *)event{
+    self.backgroundColor = nil;
+}
+
+@end
+
 @implementation NSBundle(DKCameraExtension)
 
 + (NSBundle *)cameraBundle{
@@ -60,7 +90,7 @@
 @property (nonatomic, assign) CGFloat zoomScale;
 @property (nonatomic, assign) BOOL isStopped;
 @property (nonatomic, strong) UIView * focusView;
-
+@property (nonatomic, strong) UIView * bottomView;
 #warning weak
 @property (nonatomic, weak) AVCaptureStillImageOutput * stillImageOutput;
 @end
@@ -94,6 +124,7 @@
         _defaultCaptureDevice = DKCameraDeviceSourceRearType;
         _motionManager = [CMMotionManager new];
         _isStopped = NO;
+        _bottomView = [UIView new];
     }
     return self;
 }
@@ -163,13 +194,162 @@
     }
     return _flashButton;
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (![self.captureSession isRunning]) {
+        [self.captureSession startRunning];
+        
+    }
+    
+    if (!self.motionManager.isAccelerometerActive) {
+        [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMAccelerometerData * _Nullable accelerometerData, NSError * _Nullable error) {
+            if (!error) {
+                UIDeviceOrientation currentOrientation = [DKCamera toDeviceOrientationFor:accelerometerData.acceleration] != UIDeviceOrientationUnknown ? [DKCamera toDeviceOrientationFor:accelerometerData.acceleration] : self.currentOrientation;
+                
+                if (self.currentOrientation == UIDeviceOrientationUnknown) {
+                    [self initialOriginalOrientationForOrientation];
+                    self.currentOrientation = self.originalOrientation;
+                }
+                
+                if (self.currentOrientation != currentOrientation) {
+                    self.currentOrientation = currentOrientation;
+                    [self updateContentLayoutForCurrentOrientation];
+                }
+                
+            }else{
+                NSLog(@"error while update accelerometer:%@",error.localizedDescription);
+            }
+        }];
+        [self updateSession:YES];
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupDevices];
+    [self setupUI];
+    [self setupSession];
+    
+    [self setupMotionManager];
+    
     // Do any additional setup after loading the view.
 }
 
+- (void)setupMotionManager{
+    self.motionManager.accelerometerUpdateInterval = 0.5;
+    self.motionManager.gyroUpdateInterval = 0.5;
+}
+- (void)setupSession{
+    self.captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
+    [self setupCurrentDevice];
+    
+   AVCaptureStillImageOutput * stillImageOutput = [AVCaptureStillImageOutput new];
+    if ([self.captureSession canAddOutput:stillImageOutput]) {
+        [self.captureSession addOutput:stillImageOutput];
+        self.stillImageOutput = stillImageOutput;
+    }
+    
+    if (self.onFaceDetection != nil) {
+       AVCaptureMetadataOutput * metadataOutput = [AVCaptureMetadataOutput new];
+        [metadataOutput setMetadataObjectsDelegate:self queue:dispatch_queue_create("MetadataOutputQueue",  DISPATCH_QUEUE_CONCURRENT)];
+        
+        if ([self.captureSession canAddOutput:metadataOutput]) {
+            [self.captureSession addOutput:metadataOutput];
+            metadataOutput.metadataObjectTypes = @[AVMetadataObjectTypeFace];
+        }
+    }
+    
+    self.previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
+    
+    self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    self.previewLayer.frame = self.view.bounds;
+    
+    CALayer * rootLayer = self.view.layer;
+    rootLayer.masksToBounds = YES;
+    [rootLayer insertSublayer:self.previewLayer atIndex:0];
+}
+
+#pragma mark -- AVCaptureMetadataOutputObjectsDelegate
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
+    if (self.onFaceDetection) {
+        self.onFaceDetection(metadataObjects);
+    }
+}
+
+- (UIButton *)cameraSwitchButton{
+    if (!_cameraSwitchButton) {
+        _cameraSwitchButton = [UIButton new];
+        [_cameraSwitchButton addTarget:self action:@selector(switchCamera) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraSwitchButton setImage:[DKCameraResource cameraSwitchImage] forState:UIControlStateNormal];
+        [_cameraSwitchButton sizeToFit];
+    }
+    return _cameraSwitchButton;
+}
+
+- (UIButton *)captureButton{
+    if (!_captureButton) {
+        CGFloat bottomViewHeight = 70;
+        _captureButton = [DKCaptureButton new];
+        [_captureButton addTarget:self action:@selector(takePicture) forControlEvents:UIControlEventTouchUpInside];
+        CGSize size = CGSizeMake(bottomViewHeight, bottomViewHeight);
+        CGSize newSize = CGSizeApplyAffineTransform(size, CGAffineTransformMakeScale(0.9, 0.9));
+        _captureButton.bounds = CGRectMake(0, 0, newSize.width, newSize.height);
+        _captureButton.layer.cornerRadius = _captureButton.bounds.size.height / 2;
+        _captureButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        
+        _captureButton.layer.borderWidth = 2;
+        _captureButton.layer.masksToBounds = YES;
+    }
+    return _captureButton;
+}
+- (void)setupUI{
+    
+    self.view.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:self.contentView];
+    
+    self.contentView.backgroundColor = [UIColor clearColor];
+    self.contentView.frame = self.view.bounds;
+    
+    CGFloat bottomViewHeight = 70;
+    self.bottomView.frame = CGRectMake(0, _contentView.bounds.size.height - bottomViewHeight, _contentView.bounds.size.width, bottomViewHeight);
+    self.bottomView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    self.bottomView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+    
+    [self.contentView addSubview:self.bottomView];
+    
+    self.cameraSwitchButton.frame = CGRectMake(_bottomView.bounds.size.width - self.cameraSwitchButton.bounds.size.width - 15, ( self.bottomView.bounds.size.height - self.cameraSwitchButton.bounds.size.height ) / 2, self.cameraSwitchButton.frame.size.width, self.cameraSwitchButton.frame.size.height);
+    self.cameraSwitchButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin |UIViewAutoresizingFlexibleBottomMargin;
+    
+    
+    [self.bottomView addSubview:self.cameraSwitchButton];
+    
+    self.captureButton.center = CGPointMake(self.bottomView.bounds.size.width / 2, self.bottomView.bounds.size.height / 2);
+    self.captureButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [self.bottomView addSubview:self.captureButton];
+    
+    
+    UIButton * cancelButton = [UIButton new];
+    [cancelButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton setImage:[DKCameraResource cameraCancelImage] forState:UIControlStateNormal];
+    [cancelButton sizeToFit];
+    cancelButton.frame = CGRectMake(self.contentView.bounds.size.width - cancelButton.bounds.size.width - 15, 25, cancelButton.frame.size.width, cancelButton.frame.size.height);
+    cancelButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+    [self.contentView addSubview:cancelButton];
+    
+    self.flashButton.frame = CGRectMake(5, 15, self.flashButton.frame.size.width, self.flashButton.frame.size.height);
+    [self.contentView addSubview:self.flashButton];
+    
+    [self.contentView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleZoom:)]];
+    
+    [self.contentView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleFocus:)]];
+    
+    
+    
+    
+    
+    
+    
+    
+}
 - (void)setupDevices{
     NSArray<AVCaptureDevice *> * devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     for (AVCaptureDevice * device in devices) {
@@ -435,10 +615,6 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
     return NO;
 }
 
-- (void)setupMotionManager{
-    self.motionManager.accelerometerUpdateInterval = 0.5;
-    self.motionManager.gyroUpdateInterval = 0.5;
-}
 
 - (void)initialOriginalOrientationForOrientation{
     self.originalOrientation = [DKCamera toDeviceOrientation:[UIApplication sharedApplication].statusBarOrientation];
@@ -511,6 +687,21 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
         default:
             return 0.0;
             break;
+    }
+}
+
+
++ (UIDeviceOrientation)toDeviceOrientationFor:(CMAcceleration)acceleration{
+    if (acceleration.x >= 0.75) {
+        return UIDeviceOrientationLandscapeRight;
+    }else if (acceleration.x <= -0.75){
+        return UIDeviceOrientationLandscapeLeft;
+    }else if (acceleration.y <= -0.75){
+        return UIDeviceOrientationPortrait;
+    }else if (acceleration.y >= 0.75){
+        return UIDeviceOrientationPortraitUpsideDown;
+    }else{
+        return UIDeviceOrientationUnknown;
     }
 }
 - (void)didReceiveMemoryWarning {

@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMotion/CoreMotion.h>
 
+
 @interface NSBundle(DKCameraExtension)
 + (NSBundle *)cameraBundle;
 @end
