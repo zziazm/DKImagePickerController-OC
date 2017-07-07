@@ -20,7 +20,11 @@
 @implementation DKImagePickerController
 - (void)done{
     if (self.presentingViewController) {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+            if (self.didSelectAssets) {
+                self.didSelectAssets(self.selectedAssets);
+            }
+        }];
     }
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -153,14 +157,12 @@
 }
 
 - (void)setDefaultSelectedAssets:(NSArray<DKAsset *> *)defaultSelectedAssets{
-    if (_defaultSelectedAssets != defaultSelectedAssets) {
         _defaultSelectedAssets = defaultSelectedAssets;
-        self.selectedAssets = defaultSelectedAssets.copy;
+        self.selectedAssets = defaultSelectedAssets ? defaultSelectedAssets.mutableCopy : @[].mutableCopy;
         if ([self.viewControllers.firstObject isKindOfClass:[DKAssetGroupDetailVC class]]) {
             DKAssetGroupDetailVC * vc = (DKAssetGroupDetailVC *)self.viewControllers.firstObject;
             [vc.collectionView reloadData];
         }
-    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

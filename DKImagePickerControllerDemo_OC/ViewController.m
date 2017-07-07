@@ -78,10 +78,10 @@
     
     if (asset.isVideo) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellVideo" forIndexPath:indexPath];
-        imageView = [cell viewWithTag:1];
+        imageView = [cell.contentView viewWithTag:1];
     }else{
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellImage" forIndexPath:indexPath];
-        imageView = [cell viewWithTag:1];
+        imageView = [cell.contentView viewWithTag:1];
 
     }
     

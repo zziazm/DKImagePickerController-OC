@@ -9,13 +9,15 @@
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
-
+@property (nonatomic, copy) NSMutableArray * a;
 @end
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.a = @[].mutableCopy;
+    NSLog(@"%@", self.a);
     // Override point for customization after application launch.
 //    NSURLSession * session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
 //    dispatch_semaphore_t sem = dispatch_semaphore_create(0);
