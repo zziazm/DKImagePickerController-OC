@@ -7,6 +7,7 @@
 //
 
 #import "DKAssetGroupDetailVC.h"
+#import "DKImageResource.h"
 #import "DKImagePickerController.h"
 #import "DKImageManager.h"
 #import "DKGroupDataManager.h"
@@ -68,6 +69,7 @@
         _thumbnailSize = CGSizeZero;
         _registeredCellIdentifiers = [NSMutableSet new];
         _previousPreheatRect = CGRectZero;
+        
     }
     return self;
 }
@@ -280,9 +282,22 @@
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    DKAsset * firstSelectAsset = self.imagePickerController.selectedAssets.firstObject;
-//    DKAssetGroupDetailBaseCell * cell = (DKAssetGroupDetailBaseCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//    DKAsset * selectedAsset = cell.asset;
+    
+    DKAsset * firstSelectAsset = self.imagePickerController.selectedAssets.firstObject;
+    if (firstSelectAsset) {
+        DKAssetGroupDetailBaseCell * cell = (DKAssetGroupDetailBaseCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        DKAsset * selected = cell.asset;
+        if (!self.imagePickerController.allowMultipleTypes && firstSelectAsset.isVideo != selected.isVideo) {
+            
+           UIAlertController * alert = [UIAlertController alertControllerWithTitle:DKImageLocalizedStringWithKey(@"selectPhotosOrVideos") message:DKImageLocalizedStringWithKey(@"selectPhotosOrVideosError") preferredStyle:UIAlertControllerStyleAlert];
+            
+           [alert addAction:[UIAlertAction actionWithTitle:DKImageLocalizedStringWithKey(@"ok") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+               
+           }]];
+           [self.imagePickerController presentViewController:alert animated:YES completion:nil];
+           return NO;
+        }
+    }
     BOOL shouldSelect = self.imagePickerController.selectedAssets.count < self.imagePickerController.maxSelectableCount;
     if (!shouldSelect) {
         [self.imagePickerController.UIDelegate imagePickerControllerDidReachMaxLimit:self.imagePickerController];

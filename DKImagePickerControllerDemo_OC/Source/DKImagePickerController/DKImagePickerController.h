@@ -55,8 +55,8 @@
 - (Class)imagePickerControllerCollectionVideoCell;
 
 
-- (UIViewController *)imagePickerControllerCreateCamera:(DKImagePickerController *)imagePickerController;
-- (UIViewController *)imagePickerControllerCreateCamera:(DKImagePickerController *)imagePickerController
+- (UIViewController <DKImagePickerControllerCameraProtocol> *)imagePickerControllerCreateCamera:(DKImagePickerController *)imagePickerController;
+- (UIViewController <DKImagePickerControllerCameraProtocol> *)imagePickerControllerCreateCamera:(DKImagePickerController *)imagePickerController
                                               didCancel:(void(^)())didCancel
                                 didFinishCapturingImage:(void(^)(UIImage * image))didFinishCapturingImage
                                 didFinishCapturingVideo:(void(^)(NSURL * videoURL))didFinishCapturingVideo;
@@ -146,4 +146,5 @@ typedef enum : NSUInteger {
 - (void)presentCamera;
 
 - (void)deselectImage:(DKAsset *)asset;
+- (void)dismiss;
 @end

@@ -26,6 +26,8 @@
     }
     return self;
 }
+
+
 - (void)layoutSubviews{
     [super layoutSubviews];
     CGFloat height = 30;
@@ -44,13 +46,11 @@
 }
 
 - (void)setSelected:(BOOL)selected{
-    if (self.isSelected != selected) {
-        super.selected = selected;
-        if (selected) {
-            self.videoInfoView.backgroundColor = [UIColor colorWithRed:20/255 green:129/255 blue:252/255 alpha:1];
-        }else{
-            self.videoInfoView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.7];
-        }
+    super.selected = selected;
+    if (selected) {
+        self.videoInfoView.backgroundColor = [UIColor colorWithRed:20/255 green:129/255 blue:252/255 alpha:1];
+    }else{
+        self.videoInfoView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.7];
     }
 }
 
@@ -60,7 +60,7 @@
         UIImageView * videoImageView = [[UIImageView alloc] initWithImage:[DKImageResource videoCameraIcon]];
         [_videoInfoView addSubview:videoImageView];
         videoImageView.center = CGPointMake(videoImageView.bounds.size.width/2 + 7, _videoInfoView.bounds.size.height/2);
-        videoImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        videoImageView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
         
         UILabel * videoDurationLabel = [UILabel new];
         videoDurationLabel.tag = -1;
@@ -72,7 +72,6 @@
         videoDurationLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     return _videoInfoView;
-    
 }
 
 /*

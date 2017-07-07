@@ -32,6 +32,14 @@
     if (!_hasInitialized) {
         _hasInitialized = YES;
         if (self.sourceType == DKImagePickerControllerSourceCameraType) {
+            self.navigationBarHidden = YES;
+            UIViewController * camera = [self createCamera];
+            if ([camera isKindOfClass:[UINavigationController  class]]) {
+                [self presentViewController:camera animated:YES completion:nil];
+                [self setViewControllers:@[]];
+            }else{
+                [self setViewControllers:@[camera]];
+            }
             
         }else{
             self.navigationBarHidden = NO;
@@ -74,7 +82,7 @@
                               @(PHAssetCollectionSubtypeAlbumRegular)];
         self.showsEmptyAlbums = YES;
         self.assetType = DKImagePickerControllerAssetAllAssetsType;
-        _allowMultipleTypes = NO;
+        _allowMultipleTypes = YES;
         self.autoDownloadWhenAssetIsInCloud = YES;
         _allowsLandscape = NO;
         _selectedAssets = @[].mutableCopy;
@@ -308,8 +316,7 @@
         }];
     };
     
-    DKImagePickerControllerCamera * camera = (DKImagePickerControllerCamera *) [self.UIDelegate imagePickerControllerCreateCamera:self];
-
+    UIViewController <DKImagePickerControllerCameraProtocol> * camera =  [self.UIDelegate imagePickerControllerCreateCamera:self];
     [camera setDidCancel:didCancel];
     [camera setDidFinishCapturingImage:didFinishCapturingImage];
     [camera setDidFinishCapturingVideo:didFinishCapturingVideo];

@@ -36,6 +36,9 @@
 		989163711F0B68E8002E8DC3 /* DKCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 989163701F0B68E8002E8DC3 /* DKCamera.m */; };
 		989163741F0CCA97002E8DC3 /* DKPermissionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 989163731F0CCA97002E8DC3 /* DKPermissionView.m */; };
 		989163771F0E183F002E8DC3 /* DKBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 989163761F0E183F002E8DC3 /* DKBaseManager.m */; };
+		9891637D1F0F6D01002E8DC3 /* CustomCameraUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9891637C1F0F6D01002E8DC3 /* CustomCameraUIDelegate.m */; };
+		989163801F0F6D80002E8DC3 /* CustomCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 9891637F1F0F6D80002E8DC3 /* CustomCamera.m */; };
+		989163831F0F7B13002E8DC3 /* CustomUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 989163821F0F7B13002E8DC3 /* CustomUIDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +115,12 @@
 		989163731F0CCA97002E8DC3 /* DKPermissionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKPermissionView.m; sourceTree = "<group>"; };
 		989163751F0E183F002E8DC3 /* DKBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKBaseManager.h; sourceTree = "<group>"; };
 		989163761F0E183F002E8DC3 /* DKBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKBaseManager.m; sourceTree = "<group>"; };
+		9891637B1F0F6D01002E8DC3 /* CustomCameraUIDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCameraUIDelegate.h; sourceTree = "<group>"; };
+		9891637C1F0F6D01002E8DC3 /* CustomCameraUIDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCameraUIDelegate.m; sourceTree = "<group>"; };
+		9891637E1F0F6D80002E8DC3 /* CustomCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCamera.h; sourceTree = "<group>"; };
+		9891637F1F0F6D80002E8DC3 /* CustomCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCamera.m; sourceTree = "<group>"; };
+		989163811F0F7B13002E8DC3 /* CustomUIDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUIDelegate.h; sourceTree = "<group>"; };
+		989163821F0F7B13002E8DC3 /* CustomUIDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUIDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +236,9 @@
 				98881B0C1EFCF0C0008B9B13 /* DKImagePickerControllerDemoVC.m */,
 				98881ADE1EFCE90D008B9B13 /* ViewController.h */,
 				98881ADF1EFCE90D008B9B13 /* ViewController.m */,
+				989163781F0F6CCA002E8DC3 /* CustomCameraUIDelegate */,
+				989163791F0F6CCA002E8DC3 /* CustomLayoutUIDelegate */,
+				9891637A1F0F6CCA002E8DC3 /* CustomUIDelegate */,
 				98881AE11EFCE90D008B9B13 /* Main.storyboard */,
 				98881AE41EFCE90D008B9B13 /* Assets.xcassets */,
 				98881AE61EFCE90D008B9B13 /* LaunchScreen.storyboard */,
@@ -303,6 +315,33 @@
 				980185DA1F00B56D0099173C /* DKAssetGroup.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		989163781F0F6CCA002E8DC3 /* CustomCameraUIDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				9891637B1F0F6D01002E8DC3 /* CustomCameraUIDelegate.h */,
+				9891637C1F0F6D01002E8DC3 /* CustomCameraUIDelegate.m */,
+				9891637E1F0F6D80002E8DC3 /* CustomCamera.h */,
+				9891637F1F0F6D80002E8DC3 /* CustomCamera.m */,
+			);
+			path = CustomCameraUIDelegate;
+			sourceTree = "<group>";
+		};
+		989163791F0F6CCA002E8DC3 /* CustomLayoutUIDelegate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CustomLayoutUIDelegate;
+			sourceTree = "<group>";
+		};
+		9891637A1F0F6CCA002E8DC3 /* CustomUIDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				989163811F0F7B13002E8DC3 /* CustomUIDelegate.h */,
+				989163821F0F7B13002E8DC3 /* CustomUIDelegate.m */,
+			);
+			path = CustomUIDelegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -442,9 +481,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				98881B0D1EFCF0C0008B9B13 /* DKImagePickerControllerDemoVC.m in Sources */,
+				9891637D1F0F6D01002E8DC3 /* CustomCameraUIDelegate.m in Sources */,
 				98881AE01EFCE90D008B9B13 /* ViewController.m in Sources */,
 				981EF64A1F0489250029B36E /* DKAssetGroupListVC.m in Sources */,
 				980185F31F00E9A80099173C /* DKAssetGroupDetailImageCell.m in Sources */,
+				989163801F0F6D80002E8DC3 /* CustomCamera.m in Sources */,
 				980185F91F00F89A0099173C /* DKAssetGroupGridLayout.m in Sources */,
 				980185F01F00E8170099173C /* DKAssetGroupDetailCameraCell.m in Sources */,
 				980185E11F00BA8B0099173C /* DKImageResource.m in Sources */,
@@ -462,6 +503,7 @@
 				980185ED1F00E5F00099173C /* DKAssetGroupDetailBaseCell.m in Sources */,
 				98881ADD1EFCE90D008B9B13 /* AppDelegate.m in Sources */,
 				98881ADA1EFCE90D008B9B13 /* main.m in Sources */,
+				989163831F0F7B13002E8DC3 /* CustomUIDelegate.m in Sources */,
 				980629D01F09DB89004B74C9 /* DKPopoverViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

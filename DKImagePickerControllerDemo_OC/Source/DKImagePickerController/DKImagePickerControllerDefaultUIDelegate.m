@@ -86,7 +86,7 @@
     return  nil;
 }
 
-- (UIViewController *)imagePickerControllerCreateCamera:(DKImagePickerController *)imagePickerController{
+- (UIViewController <DKImagePickerControllerCameraProtocol> *)imagePickerControllerCreateCamera:(DKImagePickerController *)imagePickerController{
     DKImagePickerControllerCamera  * camera = [DKImagePickerControllerCamera new];
     [self checkCameraPermission:camera];
     return camera;

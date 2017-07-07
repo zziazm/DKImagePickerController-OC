@@ -7,7 +7,7 @@
 //
 
 #import "DKAssetGroupDetailBaseCell.h"
-
-@interface DKAssetGroupDetailVideoCell : DKAssetGroupDetailBaseCell
+#import "DKAssetGroupDetailImageCell.h"
+@interface DKAssetGroupDetailVideoCell : DKAssetGroupDetailImageCell
 
 @end

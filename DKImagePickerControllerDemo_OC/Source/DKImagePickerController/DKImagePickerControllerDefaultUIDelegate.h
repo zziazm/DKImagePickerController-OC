@@ -14,7 +14,7 @@
 @property (nonatomic, strong) UIButton * doneButton;
 
 - (UIButton *)createDoneButtonIfNeeded;
-
+- (void)updateDoneButtonTitle:(UIButton *)button;
 @end
 
 @interface DKImagePickerControllerCamera : DKCamera<DKImagePickerControllerCameraProtocol>

@@ -9,6 +9,7 @@
 #import "DKImagePickerControllerDemoVC.h"
 #import "ViewController.h"
 #import "DKImagePickerController.h"
+#import "CustomCameraUIDelegate.h"
 @interface DKImagePickerControllerDemoVC ()
 
 @end
@@ -99,6 +100,58 @@
     vc.title= cell.textLabel.text;
     if ([segue.identifier isEqualToString:@"Pick All"]) {
         vc.pickerController = [DKImagePickerController new];
+    }
+    if ([segue.identifier isEqualToString:@"Pick Photos Only"]) {
+        DKImagePickerController * pc  = [DKImagePickerController new];
+        pc.assetType = DKImagePickerControllerAssetAllPhotosType;
+        vc.pickerController = pc;
+    }
+    
+    if ([segue.identifier isEqualToString:@"Pick Videos Only"]) {
+        DKImagePickerController * pc  = [DKImagePickerController new];
+        pc.assetType = DKImagePickerControllerAssetAllVideosType;
+        vc.pickerController = pc;
+    }
+    
+    if ([segue.identifier isEqualToString:@"Pick All(Only Photos Or Videos)"]) {
+        DKImagePickerController * pc  = [DKImagePickerController new];
+        pc.allowMultipleTypes = NO;
+        vc.pickerController = pc;
+    }
+    if ([segue.identifier isEqualToString:@"Single Select"]) {
+        DKImagePickerController * pc  = [DKImagePickerController new];
+        pc.singleSelect = YES;
+        vc.pickerController = pc;
+
+    }
+    
+    if ([segue.identifier isEqualToString:@"Take A Picture"]) {
+        DKImagePickerController * pc  = [DKImagePickerController new];
+        pc.sourceType = DKImagePickerControllerSourceCameraType;
+        vc.pickerController = pc;
+    }
+    
+    if ([segue.identifier isEqualToString:@"Hides Camera"]) {
+        DKImagePickerController * pc  = [DKImagePickerController new];
+        pc.sourceType = DKImagePickerControllerSourcePhotoType;
+        vc.pickerController = pc;
+    }
+    
+    if ([segue.identifier isEqualToString:@"Allows Landscape"]) {
+        DKImagePickerController * pc  = [DKImagePickerController new];
+        pc.allowsLandscape = YES;
+        vc.pickerController = pc;
+    }
+    
+    if ([segue.identifier isEqualToString:@"Camera Customization"]) {
+        DKImagePickerController * pc  = [DKImagePickerController new];
+        pc.UIDelegate = [CustomCameraUIDelegate new];
+        pc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        vc.pickerController = pc;
+
+    }
+    if ([segue.identifier isEqualToString:@"UI Customization"]) {
+        
     }
     
     

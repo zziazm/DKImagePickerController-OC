@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "DKImagePickerController.h"
 #import "DKAsset.h"
+#import "DKImageManager.h"
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewView;
 @property (nonatomic, copy) NSArray <DKAsset *>*assets;
@@ -57,13 +58,16 @@
     return cell;
     
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self showImagePicker];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 #pragma mark  -- UICollectionViewDelegate, UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.assets.count;
@@ -82,14 +86,13 @@
     }else{
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellImage" forIndexPath:indexPath];
         imageView = [cell.contentView viewWithTag:1];
-
     }
     
     UICollectionViewFlowLayout * layout = (UICollectionViewFlowLayout *)collectionView.collectionViewLayout;
     
     NSInteger tag = indexPath.row + 1;
     cell.tag = tag;
-    [asset fetchImageWithSize:layout.itemSize completeBlock:^(UIImage *image, NSDictionary *info) {
+    [asset fetchImageWithSize:[DKImageManager toPixel:layout.itemSize] completeBlock:^(UIImage *image, NSDictionary *info) {
         if (cell.tag == tag) {
             imageView.image = image;
         }
