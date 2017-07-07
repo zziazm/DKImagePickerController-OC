@@ -194,6 +194,7 @@
 
 - (DKAssetGroupDetailBaseCell *)dequeueReusableCameraCellForIndexPath:(NSIndexPath *)indexPath{
     [self registerCellifNeededWithCellClass:[DKAssetGroupDetailCameraCell class] cellReuseIdentifier:[DKAssetGroupDetailCameraCell cellReuseIdentifier]];
+    
     DKAssetGroupDetailBaseCell * cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:[DKAssetGroupDetailCameraCell cellReuseIdentifier] forIndexPath:indexPath];
     return cell;
 }

@@ -47,6 +47,7 @@
 - (UIView *)imagePickerControllerFooterView:(DKImagePickerController *)imagePickerController{
     return self.footer;
 }
+
 - (void)updateDoneButtonTitle:(UIButton *)button{
     if (self.imagePickerController.selectedAssets.count > 0) {
         [button setTitle:[NSString stringWithFormat:@"Send(%lu)", (unsigned long)self.imagePickerController.selectedAssets.count] forState:UIControlStateNormal];
@@ -58,5 +59,7 @@
     [button sizeToFit];
     
 }
+
+
 
 @end

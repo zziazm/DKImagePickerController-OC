@@ -17,6 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.a = @[].mutableCopy;
+    UITableView *a;
     NSLog(@"%@", self.a);
     // Override point for customization after application launch.
 //    NSURLSession * session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
