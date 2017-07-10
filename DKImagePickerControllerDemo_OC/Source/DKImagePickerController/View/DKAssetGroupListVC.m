@@ -170,7 +170,7 @@ static NSString * DKImageGroupCellIdentifier = @"DKImageGroupCellIdentifier";
     
     __weak typeof(self) weakSelf = self;
     [[[DKImageManager shareInstance] groupDataManager] fetchGroupsWithCompleteBlock:^(NSArray<NSString *> *groupIds, NSError *error) {
-        __weak typeof(self) strongSelf = weakSelf;
+        __strong typeof(self) strongSelf = weakSelf;
         strongSelf.groups = groupIds;
         strongSelf.selectedGroup = [strongSelf defaultAssetGroupOfAppropriate];
         if (strongSelf.selectedGroup) {
@@ -179,7 +179,9 @@ static NSString * DKImageGroupCellIdentifier = @"DKImageGroupCellIdentifier";
             [strongSelf.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
             
         }
-        strongSelf.selectedGroupDidChangeBlock(strongSelf.selectedGroup);
+        if (strongSelf.selectedGroupDidChangeBlock) {
+            strongSelf.selectedGroupDidChangeBlock(strongSelf.selectedGroup);
+        }
     }];
 }
 

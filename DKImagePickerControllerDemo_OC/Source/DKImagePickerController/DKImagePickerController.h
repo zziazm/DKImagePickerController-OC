@@ -49,10 +49,9 @@
 - (UIView *)imagePickerControllerFooterView:(DKImagePickerController *)imagePickerController;
 
 - (UIColor *)imagePickerControllerCollectionViewBackgroundColor;
-
 - (Class)imagePickerControllerCollectionImageCell;
-//- (Class)imagePickerControllerCollectionCameraCell;
-//- (Class)imagePickerControllerCollectionVideoCell;
+- (Class)imagePickerControllerCollectionCameraCell;
+- (Class)imagePickerControllerCollectionVideoCell;
 
 
 - (UIViewController <DKImagePickerControllerCameraProtocol> *)imagePickerControllerCreateCamera:(DKImagePickerController *)imagePickerController;

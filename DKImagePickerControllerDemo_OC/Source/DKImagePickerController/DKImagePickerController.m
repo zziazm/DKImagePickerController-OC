@@ -64,11 +64,9 @@
 }
 
 - (void)setShowsCancelButton:(BOOL)showsCancelButton{
-    if (_showsCancelButton != showsCancelButton) {
         _showsCancelButton = showsCancelButton;
         UIViewController * vc = [[self viewControllers] firstObject];
         [self updateCancelButtonForVC:vc];
-    }
 }
 - (id)init{
     if (self = [super init]) {

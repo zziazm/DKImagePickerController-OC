@@ -14,7 +14,7 @@
 #import "DKAssetGroupDetailImageCell.h"
 #import "DKPermissionView.h"
 @implementation DKImagePickerControllerDefaultUIDelegate
-- (UIButton *)createDoneButtonIfNeede{
+- (UIButton *)createDoneButtonIfNeeded{
     if (!self.doneButton) {
         self.doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.doneButton setTitleColor:[UINavigationBar appearance].tintColor?:self.imagePickerController.navigationBar.tintColor forState:UIControlStateNormal];
@@ -37,7 +37,7 @@
 - (void)prepareLayout:(DKImagePickerController *)imagePickerController
                    vc:(UIViewController *)vc{
     self.imagePickerController = imagePickerController;
-    vc.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[self createDoneButtonIfNeede]];
+    vc.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[self createDoneButtonIfNeeded]];
     
 }
 
@@ -56,11 +56,11 @@
 
 - (void)imagePickerController:(DKImagePickerController *)imagePickerController
               didSelectAssets:(NSArray <DKAsset *> *)didSelectAssets{
-    [self updateDoneButtonTitle:[self createDoneButtonIfNeede]];
+    [self updateDoneButtonTitle:[self createDoneButtonIfNeeded]];
 }
 - (void)imagePickerController:(DKImagePickerController *)imagePickerController
             didDeselectAssets:(NSArray <DKAsset *> *)didDeselectAssets{
-    [self updateDoneButtonTitle:[self createDoneButtonIfNeede]];
+    [self updateDoneButtonTitle:[self createDoneButtonIfNeeded]];
 
 }
 
@@ -70,15 +70,7 @@
     [imagePickerController presentViewController:alert animated:YES completion:nil];
 }
 
-- (Class)imagePickerControllerCollectionImageCell{
-    return [DKAssetGroupDetailImageCell class];
-}
-- (Class)imagePickerControllerCollectionCameraCell{
-    return [DKAssetGroupDetailCameraCell class];
-}
-- (Class)imagePickerControllerCollectionVideoCell{
-    return [DKAssetGroupDetailVideoCell class];
-}
+
 - (UIColor *)imagePickerControllerCollectionViewBackgroundColor {
     return [UIColor whiteColor];
 }
@@ -104,6 +96,21 @@
         }
     }];
 }
+- (Class)imagePickerControllerCollectionImageCell{
+    return [DKAssetGroupDetailImageCell class];
+}
+- (Class)imagePickerControllerCollectionCameraCell{
+    return [DKAssetGroupDetailCameraCell class];
+}
+- (Class)imagePickerControllerCollectionVideoCell{
+    return [DKAssetGroupDetailVideoCell class];
+}
+//- (DKAssetGroupDetailBaseCell *)imagePickerControllerCollectionImageCellForCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath{
+//    DKAssetGroupDetailBaseCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:[DKAssetGroupDetailImageCell cellReuseIdentifier] forIndexPath:indexPath];
+////    if (!cell) {
+////        <#statements#>
+////    }
+//}
 
 @end
 

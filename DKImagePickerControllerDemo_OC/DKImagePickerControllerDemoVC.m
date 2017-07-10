@@ -10,6 +10,8 @@
 #import "ViewController.h"
 #import "DKImagePickerController.h"
 #import "CustomCameraUIDelegate.h"
+#import "CustomUIDelegate.h"
+#import "CustomLayoutUIDelegate.h"
 @interface DKImagePickerControllerDemoVC ()
 
 @end
@@ -151,7 +153,18 @@
 
     }
     if ([segue.identifier isEqualToString:@"UI Customization"]) {
-        
+        DKImagePickerController * pc  = [DKImagePickerController new];
+        pc.UIDelegate = [CustomUIDelegate new];
+        pc.showsCancelButton = YES;
+        pc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        vc.pickerController = pc;
+    }
+    
+    if ([segue.identifier isEqualToString:@"Layout Customization"]) {
+        DKImagePickerController * pc  = [DKImagePickerController new];
+        pc.UIDelegate = [CustomLayoutUIDelegate new];
+        pc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        vc.pickerController = pc;
     }
     
     

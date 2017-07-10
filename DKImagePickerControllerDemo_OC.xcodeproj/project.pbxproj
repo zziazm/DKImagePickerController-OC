@@ -21,6 +21,8 @@
 		980186021F02065D0099173C /* DKAssetGroupDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 980186011F02065D0099173C /* DKAssetGroupDetailVC.m */; };
 		980629D01F09DB89004B74C9 /* DKPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 980629CF1F09DB89004B74C9 /* DKPopoverViewController.m */; };
 		981EF64A1F0489250029B36E /* DKAssetGroupListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 981EF6491F0489250029B36E /* DKAssetGroupListVC.m */; };
+		98487FCA1F1355C50063AA13 /* CustomFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 98487FC91F1355C50063AA13 /* CustomFlowLayout.m */; };
+		98487FCD1F1356900063AA13 /* CustomLayoutUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98487FCC1F1356900063AA13 /* CustomLayoutUIDelegate.m */; };
 		98881ADA1EFCE90D008B9B13 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881AD91EFCE90D008B9B13 /* main.m */; };
 		98881ADD1EFCE90D008B9B13 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881ADC1EFCE90D008B9B13 /* AppDelegate.m */; };
 		98881AE01EFCE90D008B9B13 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98881ADF1EFCE90D008B9B13 /* ViewController.m */; };
@@ -39,6 +41,8 @@
 		9891637D1F0F6D01002E8DC3 /* CustomCameraUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9891637C1F0F6D01002E8DC3 /* CustomCameraUIDelegate.m */; };
 		989163801F0F6D80002E8DC3 /* CustomCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 9891637F1F0F6D80002E8DC3 /* CustomCamera.m */; };
 		989163831F0F7B13002E8DC3 /* CustomUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 989163821F0F7B13002E8DC3 /* CustomUIDelegate.m */; };
+		98A623451F13238C00BB9D2A /* CustomGroupDetailImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A623441F13238C00BB9D2A /* CustomGroupDetailImageCell.m */; };
+		98A623481F13270B00BB9D2A /* CustomGroupDetailCameraCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A623471F13270B00BB9D2A /* CustomGroupDetailCameraCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +89,10 @@
 		980629CF1F09DB89004B74C9 /* DKPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKPopoverViewController.m; sourceTree = "<group>"; };
 		981EF6481F0489250029B36E /* DKAssetGroupListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAssetGroupListVC.h; sourceTree = "<group>"; };
 		981EF6491F0489250029B36E /* DKAssetGroupListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAssetGroupListVC.m; sourceTree = "<group>"; };
+		98487FC81F1355C50063AA13 /* CustomFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomFlowLayout.h; sourceTree = "<group>"; };
+		98487FC91F1355C50063AA13 /* CustomFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomFlowLayout.m; sourceTree = "<group>"; };
+		98487FCB1F1356900063AA13 /* CustomLayoutUIDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomLayoutUIDelegate.h; sourceTree = "<group>"; };
+		98487FCC1F1356900063AA13 /* CustomLayoutUIDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomLayoutUIDelegate.m; sourceTree = "<group>"; };
 		98881AD51EFCE90D008B9B13 /* DKImagePickerControllerDemo_OC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DKImagePickerControllerDemo_OC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98881AD91EFCE90D008B9B13 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		98881ADB1EFCE90D008B9B13 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -121,6 +129,10 @@
 		9891637F1F0F6D80002E8DC3 /* CustomCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCamera.m; sourceTree = "<group>"; };
 		989163811F0F7B13002E8DC3 /* CustomUIDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUIDelegate.h; sourceTree = "<group>"; };
 		989163821F0F7B13002E8DC3 /* CustomUIDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUIDelegate.m; sourceTree = "<group>"; };
+		98A623431F13238C00BB9D2A /* CustomGroupDetailImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomGroupDetailImageCell.h; sourceTree = "<group>"; };
+		98A623441F13238C00BB9D2A /* CustomGroupDetailImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomGroupDetailImageCell.m; sourceTree = "<group>"; };
+		98A623461F13270B00BB9D2A /* CustomGroupDetailCameraCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomGroupDetailCameraCell.h; sourceTree = "<group>"; };
+		98A623471F13270B00BB9D2A /* CustomGroupDetailCameraCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomGroupDetailCameraCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,6 +343,10 @@
 		989163791F0F6CCA002E8DC3 /* CustomLayoutUIDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				98487FCB1F1356900063AA13 /* CustomLayoutUIDelegate.h */,
+				98487FCC1F1356900063AA13 /* CustomLayoutUIDelegate.m */,
+				98487FC81F1355C50063AA13 /* CustomFlowLayout.h */,
+				98487FC91F1355C50063AA13 /* CustomFlowLayout.m */,
 			);
 			path = CustomLayoutUIDelegate;
 			sourceTree = "<group>";
@@ -340,6 +356,10 @@
 			children = (
 				989163811F0F7B13002E8DC3 /* CustomUIDelegate.h */,
 				989163821F0F7B13002E8DC3 /* CustomUIDelegate.m */,
+				98A623431F13238C00BB9D2A /* CustomGroupDetailImageCell.h */,
+				98A623441F13238C00BB9D2A /* CustomGroupDetailImageCell.m */,
+				98A623461F13270B00BB9D2A /* CustomGroupDetailCameraCell.h */,
+				98A623471F13270B00BB9D2A /* CustomGroupDetailCameraCell.m */,
 			);
 			path = CustomUIDelegate;
 			sourceTree = "<group>";
@@ -483,6 +503,7 @@
 				98881B0D1EFCF0C0008B9B13 /* DKImagePickerControllerDemoVC.m in Sources */,
 				9891637D1F0F6D01002E8DC3 /* CustomCameraUIDelegate.m in Sources */,
 				98881AE01EFCE90D008B9B13 /* ViewController.m in Sources */,
+				98A623451F13238C00BB9D2A /* CustomGroupDetailImageCell.m in Sources */,
 				981EF64A1F0489250029B36E /* DKAssetGroupListVC.m in Sources */,
 				980185F31F00E9A80099173C /* DKAssetGroupDetailImageCell.m in Sources */,
 				989163801F0F6D80002E8DC3 /* CustomCamera.m in Sources */,
@@ -495,13 +516,16 @@
 				989163711F0B68E8002E8DC3 /* DKCamera.m in Sources */,
 				98881B1A1EFCFDDE008B9B13 /* DKAsset.m in Sources */,
 				980185F61F00EF090099173C /* DKAssetGroupDetailVideoCell.m in Sources */,
+				98A623481F13270B00BB9D2A /* CustomGroupDetailCameraCell.m in Sources */,
 				989163741F0CCA97002E8DC3 /* DKPermissionView.m in Sources */,
+				98487FCA1F1355C50063AA13 /* CustomFlowLayout.m in Sources */,
 				980186021F02065D0099173C /* DKAssetGroupDetailVC.m in Sources */,
 				98881B171EFCFD91008B9B13 /* DKGroupDataManager.m in Sources */,
 				98881B141EFCF324008B9B13 /* DKImageManager.m in Sources */,
 				980185DB1F00B56D0099173C /* DKAssetGroup.m in Sources */,
 				980185ED1F00E5F00099173C /* DKAssetGroupDetailBaseCell.m in Sources */,
 				98881ADD1EFCE90D008B9B13 /* AppDelegate.m in Sources */,
+				98487FCD1F1356900063AA13 /* CustomLayoutUIDelegate.m in Sources */,
 				98881ADA1EFCE90D008B9B13 /* main.m in Sources */,
 				989163831F0F7B13002E8DC3 /* CustomUIDelegate.m in Sources */,
 				980629D01F09DB89004B74C9 /* DKPopoverViewController.m in Sources */,

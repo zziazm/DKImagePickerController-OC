@@ -150,11 +150,12 @@
 - (void)setup{
     [self resetCachedAssets];
     [[[DKImageManager shareInstance] groupDataManager] addObserver:self];
+    __weak typeof(self) weakSelf = self;
     self.groupListVC = [[DKAssetGroupListVC alloc] initWithSelectedGroupDidChangeBlock:^(NSString *groupId) {
-        [self selectAssetGroup:groupId];
+        __strong typeof (self) strongSelf = weakSelf;
+        [strongSelf selectAssetGroup:groupId];
     } defaultAssetGroup:self.imagePickerController.defaultAssetGroup];
     [self.groupListVC loadGroups];
-//    [DKImageManager shareInstance]
 }
 
 - (void)selectAssetGroup:(NSString * )groupId{
@@ -171,6 +172,7 @@
 
 
 - (void)updateTitleView{
+    
     DKAssetGroup * group = [[[DKImageManager shareInstance] groupDataManager] fetchGroupWithGroupId:self.selectedGroupId];
     self.title = group.groupName;
     NSInteger groupsCount = [[[[DKImageManager shareInstance] groupDataManager] groupIds] count];
@@ -182,6 +184,7 @@
 }
 
 - (DKAsset *)fetchAsset:(NSInteger)index{
+    
     if (!self.hidesCamera && index == 0) {
         return nil;
     }
@@ -189,26 +192,43 @@
     DKAssetGroup * group = [[[DKImageManager shareInstance] groupDataManager] fetchGroupWithGroupId:self.selectedGroupId];
     DKAsset * asset = [[[DKImageManager shareInstance] groupDataManager] fetchAsset:group index:assetIndex];
     return asset;
+    
 }
-
 
 - (DKAssetGroupDetailBaseCell *)dequeueReusableCameraCellForIndexPath:(NSIndexPath *)indexPath{
-    [self registerCellifNeededWithCellClass:[DKAssetGroupDetailCameraCell class] cellReuseIdentifier:[DKAssetGroupDetailCameraCell cellReuseIdentifier]];
+    Class cellCls = [self.imagePickerController.UIDelegate imagePickerControllerCollectionCameraCell];
+    NSString * cellId = [cellCls performSelector:@selector(cellReuseIdentifier)];
+    [self registerCellifNeededWithCellClass:cellCls cellReuseIdentifier:cellId];
     
-    DKAssetGroupDetailBaseCell * cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:[DKAssetGroupDetailCameraCell cellReuseIdentifier] forIndexPath:indexPath];
+    DKAssetGroupDetailBaseCell * cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     return cell;
+    
 }
+
 - (DKAssetGroupDetailBaseCell *)dequeueReusableCellForIndexPath:(NSIndexPath *)indexPath{
     DKAsset * asset = [self fetchAsset:indexPath.item];
     Class cellCls;
+//    if ([cellCls respondsToSelector:@selector(index)]) {
+//        
+//    }
+//    if ([cellCls ]) {
+//        
+//    }
     NSString * cellId;
     if (asset.isVideo) {
-        cellCls = [DKAssetGroupDetailVideoCell class];
-        cellId = [DKAssetGroupDetailVideoCell cellReuseIdentifier];
+//        cellCls = [DKAssetGroupDetailVideoCell class];
+//        cellId = [DKAssetGroupDetailVideoCell cellReuseIdentifier];
+        
+        cellCls = [self.imagePickerController.UIDelegate imagePickerControllerCollectionVideoCell];//[DKAssetGroupDetailVideoCell class];
+        cellId = [cellCls performSelector:@selector(cellReuseIdentifier)];//[DKAssetGroupDetailVideoCell cellReuseIdentifier];
+
     }else{
-        cellCls = [DKAssetGroupDetailImageCell class];
-        cellId = [DKAssetGroupDetailImageCell cellReuseIdentifier];
+//        cellCls = [DKAssetGroupDetailImageCell class];
+//        cellId = [DKAssetGroupDetailImageCell cellReuseIdentifier];
+        cellCls = [self.imagePickerController.UIDelegate imagePickerControllerCollectionImageCell];//[DKAssetGroupDetailImageCell class];
+        cellId = [cellCls performSelector:@selector(cellReuseIdentifier)];//[DKAssetGroupDetailImageCell cellReuseIdentifier];
     }
+    
     
     [self registerCellifNeededWithCellClass:cellCls cellReuseIdentifier:cellId];
     DKAssetGroupDetailBaseCell * cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
@@ -216,10 +236,12 @@
     return cell;
 }
 - (void)registerCellifNeededWithCellClass:(Class)cellClass cellReuseIdentifier:(NSString *)cellReuseIdentifier{
+    
     if (![self.registeredCellIdentifiers containsObject:cellReuseIdentifier]) {
         [self.collectionView registerClass:cellClass forCellWithReuseIdentifier:cellReuseIdentifier];
         [self.registeredCellIdentifiers addObject:cellReuseIdentifier];
     }
+    
 }
 
 - (BOOL)isCameraCell:(NSIndexPath * )indexPath{

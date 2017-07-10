@@ -7,8 +7,10 @@
 //
 
 #import "CustomUIDelegate.h"
-
+#import "CustomGroupDetailImageCell.h"
+#import "CustomGroupDetailCameraCell.h"
 @interface CustomUIDelegate()
+
 @property (nonatomic, strong) UIToolbar * footer;
 
 @end
@@ -20,6 +22,7 @@
         _footer = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 44)];
         _footer.translucent = NO;
         _footer.items = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithCustomView:[self createDoneButtonIfNeeded]]];
+        [self updateDoneButtonTitle:[self createDoneButtonIfNeeded]];
     }
     return _footer;
 }
@@ -31,7 +34,7 @@
         self.doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.doneButton.titleLabel.font = [UIFont systemFontOfSize:15];
         [self.doneButton setTitleColor:[UIColor colorWithRed:85/255 green:184/255 blue:44/255 alpha:1.0] forState:UIControlStateNormal];
-        
+        [self.doneButton setTitleColor:[UIColor colorWithRed:85/255 green:183/255 blue:44/255 alpha:0.4] forState:UIControlStateDisabled];
         [self.doneButton addTarget:self.imagePickerController action:@selector(done) forControlEvents:UIControlEventTouchUpInside];
     }
     return self.doneButton;
@@ -43,7 +46,9 @@
 - (void)imagePickerController:(DKImagePickerController *)imagePickerController showsCancelButtonForVC:(UIViewController *)vc{
     vc.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:imagePickerController action:@selector(dismiss)];
 }
-
+- (void)imagePickerController:(DKImagePickerController *)imagePickerController hidesCancelButtonForVC:(UIViewController *)vc    {
+    vc.navigationItem.rightBarButtonItem = nil;
+}
 - (UIView *)imagePickerControllerFooterView:(DKImagePickerController *)imagePickerController{
     return self.footer;
 }
@@ -60,6 +65,13 @@
     
 }
 
+- (Class)imagePickerControllerCollectionCameraCell{
+    return [CustomGroupDetailCameraCell class];
+}
+
+- (Class)imagePickerControllerCollectionImageCell{
+    return [CustomGroupDetailImageCell class];
+}
 
 
 @end

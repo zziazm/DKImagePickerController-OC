@@ -48,8 +48,9 @@
     
     CGContextSetFillColor(context, CGColorGetComponents([UIColor redColor].CGColor));
     CGContextDrawPath(context, kCGPathFill);
-    
     UIImage * arrowImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
     return arrowImage;
 }
 
