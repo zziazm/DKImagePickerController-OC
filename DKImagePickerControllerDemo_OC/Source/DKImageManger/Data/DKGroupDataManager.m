@@ -32,7 +32,9 @@
     [self.groupIds removeAllObjects];
     [self.groups removeAllObjects];
     [self.assets removeAllObjects];
-    
+    self.groups = nil;
+    self.groupIds = nil;
+    self.assets = nil;
     [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
 }
 
@@ -74,7 +76,6 @@
            
            [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:strongSelf];
            [strongSelf updatePartial:groups groupIds:groupIds completeBlock:completeBlock];
-           
        });
         
     }

@@ -68,6 +68,7 @@
         UIViewController * vc = [[self viewControllers] firstObject];
         [self updateCancelButtonForVC:vc];
 }
+
 - (id)init{
     if (self = [super init]) {
         _showsCancelButton = NO;
@@ -90,6 +91,10 @@
         self.preferredContentSize = CGSizeMake(680, 600);
         rootVC.navigationItem.hidesBackButton = YES;
         
+        [[DKImageManager shareInstance] groupDataManager].assetGroupTypes = self.assetGroupTypes;
+        [[DKImageManager shareInstance] groupDataManager].assetFetchOptions = [self createAssetFetchOptions];
+        [[DKImageManager shareInstance] groupDataManager].showsEmptyAlbums = self.showsEmptyAlbums;
+        [DKImageManager shareInstance].autoDownloadWhenAssetIsInCloud = self.autoDownloadWhenAssetIsInCloud ;
         
     }
     return self;
@@ -325,7 +330,10 @@
 - (void)dismiss{
     [self dismissAnimated:YES];
 }
-
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[DKImageManager shareInstance] invalidate];
+}
 - (void)dismissAnimated:(BOOL)flag{
     [self.presentingViewController dismissViewControllerAnimated:flag completion:^{
         if (self.didCancel) {

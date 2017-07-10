@@ -165,8 +165,9 @@
     }
     self.selectedGroupId = groupId;
     [self updateTitleView];
+    [self.collectionView reloadData];
+
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.collectionView reloadData];
     });
 }
 
@@ -287,6 +288,9 @@
     if (!self.selectedGroupId) {
         return 0;
     }
+    
+    
+    
     
     DKAssetGroup * group = [[[DKImageManager shareInstance] groupDataManager] fetchGroupWithGroupId:self.selectedGroupId];
     NSInteger count = group.totalCount + (self.hidesCamera ? 0 : 1);

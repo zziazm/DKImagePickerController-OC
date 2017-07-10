@@ -173,4 +173,8 @@ completeBlock:(void(^)(AVAsset * avAsset, NSDictionary * info))completeBlock
     CGFloat scale = [[UIScreen mainScreen] scale];
     return CGSizeMake(size.width * scale, size.height * scale);
 }
+- (void)invalidate{
+    [self.groupDataManager invalidate];
+    self.groupDataManager = nil;
+}
 @end

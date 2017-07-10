@@ -56,4 +56,5 @@
 
 @property (nonatomic, assign) BOOL autoDownloadWhenAssetIsInCloud;
 + (CGSize)toPixel:(CGSize)size;
+- (void)invalidate;
 @end

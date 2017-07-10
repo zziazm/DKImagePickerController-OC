@@ -49,4 +49,5 @@
 - (DKAsset *)fetchAsset:(DKAssetGroup *)group
                   index:(NSInteger)index;
 - (PHFetchResult <PHAsset *>*)filterResults:(PHFetchResult <PHAsset *>*)fetchResult;
+- (void)invalidate;
 @end
