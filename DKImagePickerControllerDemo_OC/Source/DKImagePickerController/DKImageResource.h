@@ -31,6 +31,3 @@
 + (NSString *)localizedStringForKey:(NSString *)key;
 @end
 
-static NSString * DKImageLocalizedStringWithKey (NSString * key){
-    return [DKImageLocalizedString localizedStringForKey:key];
-}

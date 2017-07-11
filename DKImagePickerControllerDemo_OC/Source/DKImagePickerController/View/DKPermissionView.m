@@ -28,16 +28,16 @@
     [permissionView addSubview:permissionView.titleLabel];
     [permissionView addSubview:permissionView.permitButton];
     if (style == DKImagePickerControllerSourcePhotoType) {
-        permissionView.titleLabel.text = DKImageLocalizedStringWithKey(@"permissionPhoto");
+        permissionView.titleLabel.text = [DKImageLocalizedString localizedStringForKey:@"permissionPhoto"];
         permissionView.titleLabel.textColor = [UIColor grayColor];
     }else{
         permissionView.titleLabel.textColor = [UIColor whiteColor];
-        permissionView.titleLabel.text = DKImageLocalizedStringWithKey(@"permissionCamera");
+        permissionView.titleLabel.text = [DKImageLocalizedString localizedStringForKey:@"permissionCamera"];
     }
     
     [permissionView.titleLabel sizeToFit];
     
-    [permissionView.permitButton setTitle:DKImageLocalizedStringWithKey(@"permit") forState:UIControlStateNormal];
+    [permissionView.permitButton setTitle:[DKImageLocalizedString localizedStringForKey:@"permit"] forState:UIControlStateNormal];
     
     [permissionView.permitButton setTitleColor:[UIColor colorWithRed:0 green:122/255 blue:1 alpha:1] forState:UIControlStateNormal];
     [permissionView.permitButton addTarget:permissionView action:@selector(gotoSettings) forControlEvents:UIControlEventTouchUpInside];

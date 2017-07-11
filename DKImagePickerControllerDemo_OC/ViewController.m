@@ -5,7 +5,7 @@
 //  Created by 赵铭 on 2017/6/23.
 //  Copyright © 2017年 zm. All rights reserved.
 //
-
+#import <AVKit/AVKit.h>
 #import "ViewController.h"
 #import "DKImagePickerController.h"
 #import "DKAsset.h"
@@ -98,6 +98,28 @@
         }
     }];
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    DKAsset * asset = self.assets[indexPath.row];
+    if (asset.isVideo) {
+        [asset fetchAVAssetWithCompleteBlock:^(AVAsset *avAsset, NSDictionary *info) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self playVideo:avAsset];
+            });
+        }];
+    }
     
+}
+- (void)playVideo:(AVAsset *)asset{
+   AVPlayerItem * item = [AVPlayerItem playerItemWithAsset:asset];
+   AVPlayer * avPlayer = [AVPlayer playerWithPlayerItem:item];
+   AVPlayerViewController * player = [AVPlayerViewController new];
+   player.player = avPlayer;
+    [avPlayer play];
+    [self presentViewController:player animated:YES completion:nil];
+   
+    
+
 }
 @end

@@ -17,7 +17,6 @@
 
 
 @interface DKCameraResource : NSObject
-+ (void)checkCameraPermission:(void(^)(BOOL granted))handler;
 
 + (UIImage *)imageForResource:(NSString *)name;
 + (UIImage *)cameraCancelImage;

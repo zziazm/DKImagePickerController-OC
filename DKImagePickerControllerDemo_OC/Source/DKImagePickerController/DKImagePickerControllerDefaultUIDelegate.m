@@ -26,9 +26,9 @@
 
 - (void)updateDoneButtonTitle:(UIButton *)button{
     if (self.imagePickerController.selectedAssets.count > 0) {
-    [button setTitle:[NSString stringWithFormat:DKImageLocalizedStringWithKey(@"select"), self.imagePickerController.selectedAssets.count] forState:UIControlStateNormal];
+    [button setTitle:[NSString stringWithFormat:[DKImageLocalizedString localizedStringForKey:@"select"], self.imagePickerController.selectedAssets.count] forState:UIControlStateNormal];
     }else{
-        [button setTitle:DKImageLocalizedStringWithKey(@"done") forState:UIControlStateNormal];
+        [button setTitle:[DKImageLocalizedString localizedStringForKey:@"done"]forState:UIControlStateNormal];
     }
     [button sizeToFit];
 }
@@ -65,8 +65,8 @@
 }
 
 - (void)imagePickerControllerDidReachMaxLimit:(DKImagePickerController *)imagePickerController{
-    UIAlertController * alert = [UIAlertController  alertControllerWithTitle:DKImageLocalizedStringWithKey(@"maxLimitReached") message:[NSString stringWithFormat:@"%@", DKImageLocalizedStringWithKey(@"maxLimitReachedMessage")] preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:DKImageLocalizedStringWithKey(@"ok") style:UIAlertActionStyleCancel handler:nil]];
+    UIAlertController * alert = [UIAlertController  alertControllerWithTitle:[DKImageLocalizedString localizedStringForKey:@"maxLimitReached"] message:[NSString stringWithFormat:@"%@", [DKImageLocalizedString localizedStringForKey:@"maxLimitReachedMessage"]] preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:[DKImageLocalizedString localizedStringForKey:@"ok"] style:UIAlertActionStyleCancel handler:nil]];
     [imagePickerController presentViewController:alert animated:YES completion:nil];
 }
 

@@ -109,12 +109,10 @@
     if (self.footerView) {
         [self.view addSubview:self.footerView];
     }
-    
     self.hidesCamera = self.imagePickerController.sourceType == DKImagePickerControllerSourcePhotoType;
     [self checkPhotoPermission];
     // Do any additional setup after loading the view.
 }
-
 
 - (UIButton *)selectGroupButton{
     if (!_selectGroupButton) {
@@ -288,10 +286,6 @@
     if (!self.selectedGroupId) {
         return 0;
     }
-    
-    
-    
-    
     DKAssetGroup * group = [[[DKImageManager shareInstance] groupDataManager] fetchGroupWithGroupId:self.selectedGroupId];
     NSInteger count = group.totalCount + (self.hidesCamera ? 0 : 1);
     return count;
@@ -316,9 +310,9 @@
         DKAsset * selected = cell.asset;
         if (!self.imagePickerController.allowMultipleTypes && firstSelectAsset.isVideo != selected.isVideo) {
             
-           UIAlertController * alert = [UIAlertController alertControllerWithTitle:DKImageLocalizedStringWithKey(@"selectPhotosOrVideos") message:DKImageLocalizedStringWithKey(@"selectPhotosOrVideosError") preferredStyle:UIAlertControllerStyleAlert];
+           UIAlertController * alert = [UIAlertController alertControllerWithTitle:[DKImageLocalizedString localizedStringForKey:@"selectPhotosOrVideos"] message:[DKImageLocalizedString localizedStringForKey:@"selectPhotosOrVideosError"] preferredStyle:UIAlertControllerStyleAlert];
             
-           [alert addAction:[UIAlertAction actionWithTitle:DKImageLocalizedStringWithKey(@"ok") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+           [alert addAction:[UIAlertAction actionWithTitle:[DKImageLocalizedString localizedStringForKey:@"ok"] style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                
            }]];
            [self.imagePickerController presentViewController:alert animated:YES completion:nil];
@@ -371,11 +365,7 @@
             selectedCell.index = selectedCell.index - 1;
         }
     }
-    
     [self.imagePickerController deselectImage:removedAsset];
-    
-    
-    
 }
 
 #pragma mark -- DKGroupDataManagerObserver

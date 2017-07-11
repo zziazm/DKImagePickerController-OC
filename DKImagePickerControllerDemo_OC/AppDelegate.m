@@ -16,10 +16,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.a = @[].mutableCopy;
-    UITableView *a;
-    NSLog(@"%@", self.a);
-    // Override point for customization after application launch.
+        // Override point for customization after application launch.
 //    NSURLSession * session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
 //    dispatch_semaphore_t sem = dispatch_semaphore_create(0);
 //    NSURLSessionDataTask * data = [session dataTaskWithURL:[NSURL URLWithString:@"http://www.baidu.com"] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {

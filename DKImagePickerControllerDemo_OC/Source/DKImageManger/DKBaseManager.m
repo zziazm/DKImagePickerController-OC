@@ -34,6 +34,9 @@
     [self notifyObserversWithSelector:sel object:object objectTwo:nil];
 }
 
+
+
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 - (void)notifyObserversWithSelector:(SEL)selector
                              object:(id)object
                           objectTwo:(id)objectTwo{
@@ -41,7 +44,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             for (id anyObject in self.observers.allObjects) {
                 if ([anyObject respondsToSelector:selector]) {
-                    [anyObject performSelector:selector withObject:object withObject:objectTwo];
+                   [anyObject performSelector:selector withObject:object withObject:objectTwo];
                 }
             }
         });

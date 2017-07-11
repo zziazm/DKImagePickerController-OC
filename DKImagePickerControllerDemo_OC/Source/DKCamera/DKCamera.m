@@ -91,7 +91,6 @@
 @property (nonatomic, assign) BOOL isStopped;
 @property (nonatomic, strong) UIView * focusView;
 @property (nonatomic, strong) UIView * bottomView;
-#warning weak
 @property (nonatomic, weak) AVCaptureStillImageOutput * stillImageOutput;
 @end
 
