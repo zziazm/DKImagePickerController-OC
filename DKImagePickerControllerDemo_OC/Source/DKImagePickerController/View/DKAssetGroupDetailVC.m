@@ -177,7 +177,7 @@
     DKAssetGroup * group = [[[DKImageManager shareInstance] groupDataManager] fetchGroupWithGroupId:self.selectedGroupId];
     self.title = group.groupName;
     NSInteger groupsCount = [[[[DKImageManager shareInstance] groupDataManager] groupIds] count];
-    [self.selectGroupButton setTitle:[NSString stringWithFormat:@"%@%@", group.groupName, groupsCount > 1 ? @"箭头" : @""] forState:UIControlStateNormal];
+    [self.selectGroupButton setTitle:[NSString stringWithFormat:@"%@%@", group.groupName, groupsCount > 1 ? @"\u25be" : @""] forState:UIControlStateNormal];
     [self.selectGroupButton sizeToFit];
     self.selectGroupButton.enabled = groupsCount > 1;
     self.navigationItem.titleView = self.selectGroupButton;
