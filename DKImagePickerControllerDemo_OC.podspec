@@ -1,12 +1,15 @@
-Pod::Spec.new do |s|
-  s.name          = "DKImagePickerController_OC"
-  s.version       = "0.0.1"
-  s.summary       = "Image Picker Controller by OC."
-  s.homepage      = "https://github.com/zziazm/DKImagePickerController-OC"
-  s.license       = { :type => "MIT", :file => "LICENSE" }
-  s.author        = { "Bannings" => "1310726454@qq.com" }
-  s.platform      = :ios, "8.0"
-  s.source        = { :git => "https://github.com/zziazm/DKImagePickerController-OC.git", 
-                     :tag => s.version.to_s }
-  s.requires_arc  = true
+Pod::Spec.new do |s| 
+  s.name         = "DKImagePickrController_OC" 
+  s.version      = "0.0.1" 
+  s.summary      = "图片选择器"
+  s.description  = <<-DESC
+                  简单的图片选择器
+                   DESC
+  s.homepage     = "https://github.com/zziazm/DKImagePickerController-OC" 
+  s.license      = "MIT" 
+  s.author       = { "zziazm" => "1310726454@qq.com" } 
+  s.platform     = :ios, "8.0" 
+  s.source       = { :git => "https://github.com/zziazm/DKImagePickerController-OC.git", :tag => s.version }
+  s.source_files = "DKImagePickerController_OC/DKImagePickerController_OC/Source/*.{h,m}" 
+  s.requires_arc = true 
 end
