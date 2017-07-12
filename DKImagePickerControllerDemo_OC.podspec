@@ -1,5 +1,5 @@
 Pod::Spec.new do |s| 
-  s.name         = "DKImagePickrControllerDemo_OC" 
+  s.name         = "DKImagePickrControllerDemosName_OC" 
   s.version      = "0.0.1" 
   s.summary      = "图片选择器"
   s.description  = <<-DESC
