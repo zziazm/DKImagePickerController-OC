@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  DKImagePickerControllerDemo_OC
 //
-//  Created by 赵铭 on 2017/6/23.
+//  Created by zm on 2017/6/23.
 //  Copyright © 2017年 zm. All rights reserved.
 //
 
@@ -17,18 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         // Override point for customization after application launch.
-//    NSURLSession * session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-//    dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-//    NSURLSessionDataTask * data = [session dataTaskWithURL:[NSURL URLWithString:@"http://www.baidu.com"] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        NSLog(@"222222");
-//        dispatch_semaphore_signal(sem);
-//
-//    }];
-//    [data resume];
-//    dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-//    NSLog(@"333333");
-//
-    return YES;
+       return YES;
 }
 
 

@@ -2,7 +2,7 @@
 //  DKAssetGroupListVC.h
 //  DKImagePickerControllerDemo_OC
 //
-//  Created by 赵铭 on 2017/6/29.
+//  Created by zm on 2017/6/29.
 //  Copyright © 2017年 zm. All rights reserved.
 //
 

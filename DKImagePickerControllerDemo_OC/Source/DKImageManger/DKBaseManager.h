@@ -2,7 +2,7 @@
 //  DKBaseManager.h
 //  DKImagePickerControllerDemo_OC
 //
-//  Created by 赵铭 on 2017/7/6.
+//  Created by zm on 2017/7/6.
 //  Copyright © 2017年 zm. All rights reserved.
 //
 
