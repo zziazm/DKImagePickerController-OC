@@ -1,30 +1,12 @@
 Pod::Spec.new do |s|
   s.name          = "DKImagePickerController_OC"
-  s.version       = "0.0,.1"
+  s.version       = "0.0.1"
   s.summary       = "Image Picker Controller by OC."
-  s.homepage      = "https://github.com/zhangao0086/DKImagePickerController"
+  s.homepage      = "https://github.com/zziazm/DKImagePickerController-OC"
   s.license       = { :type => "MIT", :file => "LICENSE" }
-  s.author        = { "Bannings" => "zhangao0086@gmail.com" }
+  s.author        = { "Bannings" => "1310726454@qq.com" }
   s.platform      = :ios, "8.0"
-  s.source        = { :git => "https://github.com/zhangao0086/DKImagePickerController.git", 
+  s.source        = { :git => "https://github.com/zziazm/DKImagePickerController-OC.git", 
                      :tag => s.version.to_s }
-  s.source_files  = "DKImagePickerController/**/*.{h,swift}"
-
-  s.resource      = "DKImagePickerController/DKImagePickerController.bundle"
-  s.frameworks    = "Foundation", "UIKit", "Photos"
   s.requires_arc  = true
-
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
-
-  s.subspec 'Camera' do |camera|
-
-    camera.ios.source_files = "DKCamera/DKCamera.swift"
-    camera.resource = "DKCamera/DKCameraResource.bundle"
-  end
-
-  s.subspec 'ImageManager' do |image|
-
-    image.ios.source_files = "DKImageManager/**/*.swift"
-  end
-
 end
