@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
   s.author       = { "zziazm" => "1310726454@qq.com" } 
   s.platform     = :ios, "8.0" 
   s.source       = { :git => "https://github.com/zziazm/DKImagePickerController-OC.git", :tag => s.version }
-  s.source_files = "DKImagePickerController_OC/DKImagePickerController_OC/Source/*.{h,m}" 
+  s.source_files = "DKImagePickerController_OC/**/*.{h,m}" 
   s.requires_arc = true 
 end
