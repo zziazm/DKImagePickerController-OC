@@ -134,7 +134,7 @@
                   moduleName = "DKImagePickerControllerDemo_OC"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zm/xProject/DKImagePickerControllerDemo_OC/DKImagePickerControllerDemo_OC/Source/DKCamera/DKCamera.h"
-                  timestampString = "521452376.168573"
+                  timestampString = "521628867.708887"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "38"
@@ -149,12 +149,12 @@
                   moduleName = "DKImagePickerControllerDemo_OC"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zm/xProject/DKImagePickerControllerDemo_OC/DKImagePickerControllerDemo_OC/Source/DKCamera/DKCamera.h"
-                  timestampString = "521452376.171741"
+                  timestampString = "521628867.711529"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "38"
                   endingLineNumber = "38"
-                  offsetFromSymbolStart = "32">
+                  offsetFromSymbolStart = "20">
                </Location>
             </Locations>
          </BreakpointContent>
