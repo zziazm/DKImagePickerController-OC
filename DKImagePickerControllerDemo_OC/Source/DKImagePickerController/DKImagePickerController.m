@@ -18,15 +18,44 @@
 @end
 
 @implementation DKImagePickerController
-- (void)done{
-    if (self.presentingViewController) {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-            if (self.didSelectAssets) {
-                self.didSelectAssets(self.selectedAssets);
-            }
-        }];
+- (id)init{
+    if (self = [super init]) {
+        _showsCancelButton = NO;
+        _sourceType = DKImagePickerControllerSourceBothType;
+        _hasInitialized = false;
+        _autoCloseOnSingleSelect = YES;
+        _singleSelect = NO;
+        _maxSelectableCount = 999;
+        self.assetGroupTypes = @[@(PHAssetCollectionSubtypeSmartAlbumUserLibrary),
+                                 @(PHAssetCollectionSubtypeSmartAlbumFavorites),
+                                 @(PHAssetCollectionSubtypeAlbumRegular)];
+        self.showsEmptyAlbums = YES;
+        self.assetType = DKImagePickerControllerAssetAllAssetsType;
+        _allowMultipleTypes = YES;
+        self.autoDownloadWhenAssetIsInCloud = YES;
+        _allowsLandscape = NO;
+        _selectedAssets = @[].mutableCopy;
+        
+        
+        UIViewController * rootVC = [UIViewController new];
+        self.viewControllers = @[rootVC];
+        self.preferredContentSize = CGSizeMake(680, 600);
+        rootVC.navigationItem.hidesBackButton = YES;
+        
+        [[DKImageManager shareInstance] groupDataManager].assetGroupTypes = self.assetGroupTypes;
+        [[DKImageManager shareInstance] groupDataManager].assetFetchOptions = [self createAssetFetchOptions];
+        [[DKImageManager shareInstance] groupDataManager].showsEmptyAlbums = self.showsEmptyAlbums;
+        [DKImageManager shareInstance].autoDownloadWhenAssetIsInCloud = self.autoDownloadWhenAssetIsInCloud ;
     }
+    return self;
 }
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (!_hasInitialized) {
@@ -63,127 +92,6 @@
     }
 }
 
-- (void)setShowsCancelButton:(BOOL)showsCancelButton{
-        _showsCancelButton = showsCancelButton;
-        UIViewController * vc = [[self viewControllers] firstObject];
-        [self updateCancelButtonForVC:vc];
-}
-
-- (id)init{
-    if (self = [super init]) {
-        _showsCancelButton = NO;
-        _sourceType = DKImagePickerControllerSourceBothType;
-        _hasInitialized = false;
-        _singleSelect = NO;
-        _maxSelectableCount = 999;
-        self.assetGroupTypes = @[@(PHAssetCollectionSubtypeSmartAlbumUserLibrary),
-                              @(PHAssetCollectionSubtypeSmartAlbumFavorites),
-                              @(PHAssetCollectionSubtypeAlbumRegular)];
-        self.showsEmptyAlbums = YES;
-        self.assetType = DKImagePickerControllerAssetAllAssetsType;
-        _allowMultipleTypes = YES;
-        self.autoDownloadWhenAssetIsInCloud = YES;
-        _allowsLandscape = NO;
-        _selectedAssets = @[].mutableCopy;
-        
-        UIViewController * rootVC = [UIViewController new];
-        self.viewControllers = @[rootVC];
-        self.preferredContentSize = CGSizeMake(680, 600);
-        rootVC.navigationItem.hidesBackButton = YES;
-        
-        [[DKImageManager shareInstance] groupDataManager].assetGroupTypes = self.assetGroupTypes;
-        [[DKImageManager shareInstance] groupDataManager].assetFetchOptions = [self createAssetFetchOptions];
-        [[DKImageManager shareInstance] groupDataManager].showsEmptyAlbums = self.showsEmptyAlbums;
-        [DKImageManager shareInstance].autoDownloadWhenAssetIsInCloud = self.autoDownloadWhenAssetIsInCloud ;
-        
-    }
-    return self;
-}
-- (PHFetchOptions *)assetFetchOptions{
-    if (!_assetFetchOptions) {
-        _assetFetchOptions = [PHFetchOptions new];
-    }
-    return _assetFetchOptions;
-}
-- (void)setAssetGroupTypes:(NSArray<NSNumber *> *)assetGroupTypes{
-    if (_assetGroupTypes != assetGroupTypes) {
-        _assetGroupTypes = assetGroupTypes;
-        [[DKImageManager shareInstance] groupDataManager].assetGroupTypes = assetGroupTypes;
-    }
-}
-- (void)setAssetType:(DKImagePickerControllerAssetType)assetType{
-    if (_assetType != assetType) {
-        _assetType = assetType;
-        [[DKImageManager shareInstance] groupDataManager].assetFetchOptions = [self createAssetFetchOptions];
-    }
-}
-
-- (void)setShowsEmptyAlbums:(BOOL)showsEmptyAlbums{
-    if (_showsEmptyAlbums != showsEmptyAlbums) {
-        _showsEmptyAlbums = showsEmptyAlbums;
-        [[DKImageManager shareInstance] groupDataManager].showsEmptyAlbums = showsEmptyAlbums;
-    }
-}
-
-- (void)setAssetFilter:(BOOL (^)(PHAsset *))assetFilter{
-    if (_assetFilter != assetFilter) {
-        _assetFilter = assetFilter;
-        [[DKImageManager shareInstance] groupDataManager].assetFilter = assetFilter;
-        
-    }
-}
-
-- (void)setSourceType:(DKImagePickerControllerSourceType)sourceType {
-    if (_sourceType != sourceType) {
-        _sourceType = sourceType;
-        _hasInitialized = NO;
-        
-    }
-}
-- (DKImagePickerControllerDefaultUIDelegate *)UIDelegate{
-    if (!_UIDelegate) {
-        _UIDelegate  = [DKImagePickerControllerDefaultUIDelegate new];
-    }
-    return _UIDelegate;
-    
-}
-
-- (void)setImageFetchPredicate:(NSPredicate *)imageFetchPredicate{
-    if (_imageFetchPredicate != imageFetchPredicate) {
-        _imageFetchPredicate = imageFetchPredicate;
-        [[DKImageManager shareInstance] groupDataManager].assetFetchOptions = [self createAssetFetchOptions];
-    }
-}
-- (void)setVideoFetchPredicate:(NSPredicate *)videoFetchPredicate{
-    if (_videoFetchPredicate != videoFetchPredicate) {
-        _videoFetchPredicate  = videoFetchPredicate;
-        [[DKImageManager shareInstance] groupDataManager].assetFetchOptions = [self createAssetFetchOptions];
-    }
-}
-- (void)setAutoDownloadWhenAssetIsInCloud:(BOOL)autoDownloadWhenAssetIsInCloud{
-    if (_autoDownloadWhenAssetIsInCloud != autoDownloadWhenAssetIsInCloud) {
-        _autoDownloadWhenAssetIsInCloud = autoDownloadWhenAssetIsInCloud;
-        [DKImageManager shareInstance].autoDownloadWhenAssetIsInCloud = YES;
-    }
-}
-
-- (void)setDefaultSelectedAssets:(NSArray<DKAsset *> *)defaultSelectedAssets{
-        _defaultSelectedAssets = defaultSelectedAssets;
-        self.selectedAssets = defaultSelectedAssets ? defaultSelectedAssets.mutableCopy : @[].mutableCopy;
-        if ([self.viewControllers.firstObject isKindOfClass:[DKAssetGroupDetailVC class]]) {
-            DKAssetGroupDetailVC * vc = (DKAssetGroupDetailVC *)self.viewControllers.firstObject;
-            [vc.collectionView reloadData];
-        }
-}
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (PHFetchOptions *)createAssetFetchOptions{
     
@@ -221,11 +129,14 @@
     self.assetFetchOptions.predicate = predicate;
     return self.assetFetchOptions;
 }
+
 - (void)selectImage:(DKAsset *)asset{
     if (self.singleSelect) {
         [self deselectAllAssets];
         [self.selectedAssets addObject:asset];
-        [self done];
+        if (self.autoCloseOnSingleSelect) {
+            [self done];
+        }
     }else{
         [self.selectedAssets addObject:asset];
         if (self.sourceType == DKImagePickerControllerSourceCameraType) {
@@ -253,9 +164,6 @@
     [self.UIDelegate imagePickerController:self didDeselectAssets:@[asset]];
 }
 
-- (void)presentCamera{
-    [self presentViewController:[self createCamera] animated:YES completion:nil];
-}
 
 - (UIViewController *)createCamera{
     void(^didCancel)() = ^{
@@ -326,15 +234,24 @@
     
     return camera;
 }
+- (void)presentCamera{
+    [self presentViewController:[self createCamera] animated:YES completion:nil];
+}
+- (void)done{
+    if (self.presentingViewController) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+            if (self.didSelectAssets) {
+                self.didSelectAssets(self.selectedAssets);
+            }
+        }];
+    }
+}
 
 - (void)dismiss{
     [self dismissAnimated:YES];
 }
 
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[DKImageManager shareInstance] invalidate];
-}
+
 
 - (void)dismissAnimated:(BOOL)flag{
     [self.presentingViewController dismissViewControllerAnimated:flag completion:^{
@@ -343,6 +260,102 @@
         }
        
     }];
+}
+
+
+#pragma -- Getter Setter
+- (PHFetchOptions *)assetFetchOptions{
+    if (!_assetFetchOptions) {
+        _assetFetchOptions = [PHFetchOptions new];
+    }
+    return _assetFetchOptions;
+}
+
+- (void)setShowsCancelButton:(BOOL)showsCancelButton{
+    _showsCancelButton = showsCancelButton;
+    UIViewController * vc = [[self viewControllers] firstObject];
+    [self updateCancelButtonForVC:vc];
+}
+
+- (void)setAssetGroupTypes:(NSArray<NSNumber *> *)assetGroupTypes{
+    if (_assetGroupTypes != assetGroupTypes) {
+        _assetGroupTypes = assetGroupTypes;
+        [[DKImageManager shareInstance] groupDataManager].assetGroupTypes = assetGroupTypes;
+    }
+}
+- (void)setAssetType:(DKImagePickerControllerAssetType)assetType{
+    if (_assetType != assetType) {
+        _assetType = assetType;
+        [[DKImageManager shareInstance] groupDataManager].assetFetchOptions = [self createAssetFetchOptions];
+    }
+}
+
+- (void)setShowsEmptyAlbums:(BOOL)showsEmptyAlbums{
+    if (_showsEmptyAlbums != showsEmptyAlbums) {
+        _showsEmptyAlbums = showsEmptyAlbums;
+        [[DKImageManager shareInstance] groupDataManager].showsEmptyAlbums = showsEmptyAlbums;
+    }
+}
+
+- (void)setAssetFilter:(BOOL (^)(PHAsset *))assetFilter{
+    if (_assetFilter != assetFilter) {
+        _assetFilter = assetFilter;
+        [[DKImageManager shareInstance] groupDataManager].assetFilter = assetFilter;
+        
+    }
+}
+
+- (void)setSourceType:(DKImagePickerControllerSourceType)sourceType {
+    if (_sourceType != sourceType) {
+        _sourceType = sourceType;
+        _hasInitialized = NO;
+        
+    }
+}
+- (DKImagePickerControllerDefaultUIDelegate *)UIDelegate{
+    if (!_UIDelegate) {
+        _UIDelegate  = [DKImagePickerControllerDefaultUIDelegate new];
+    }
+    return _UIDelegate;
+    
+}
+
+- (void)setImageFetchPredicate:(NSPredicate *)imageFetchPredicate{
+    if (_imageFetchPredicate != imageFetchPredicate) {
+        _imageFetchPredicate = imageFetchPredicate;
+        [[DKImageManager shareInstance] groupDataManager].assetFetchOptions = [self createAssetFetchOptions];
+    }
+}
+- (void)setVideoFetchPredicate:(NSPredicate *)videoFetchPredicate{
+    if (_videoFetchPredicate != videoFetchPredicate) {
+        _videoFetchPredicate  = videoFetchPredicate;
+        [[DKImageManager shareInstance] groupDataManager].assetFetchOptions = [self createAssetFetchOptions];
+    }
+}
+- (void)setAutoDownloadWhenAssetIsInCloud:(BOOL)autoDownloadWhenAssetIsInCloud{
+    if (_autoDownloadWhenAssetIsInCloud != autoDownloadWhenAssetIsInCloud) {
+        _autoDownloadWhenAssetIsInCloud = autoDownloadWhenAssetIsInCloud;
+        [DKImageManager shareInstance].autoDownloadWhenAssetIsInCloud = YES;
+    }
+}
+
+- (void)setDefaultSelectedAssets:(NSArray<DKAsset *> *)defaultSelectedAssets{
+    _defaultSelectedAssets = defaultSelectedAssets;
+    self.selectedAssets = defaultSelectedAssets ? defaultSelectedAssets.mutableCopy : @[].mutableCopy;
+    if ([self.viewControllers.firstObject isKindOfClass:[DKAssetGroupDetailVC class]]) {
+        DKAssetGroupDetailVC * vc = (DKAssetGroupDetailVC *)self.viewControllers.firstObject;
+        [vc.collectionView reloadData];
+    }
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[DKImageManager shareInstance] invalidate];
 }
 /*
 #pragma mark - Navigation

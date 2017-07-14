@@ -71,54 +71,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DKImagePickerControllerDemo_OC/Source/DKImagePickerController/View/DKAssetGroupDetailVC.m"
-            timestampString = "521444157.544501"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "396"
-            endingLineNumber = "396"
-            landmarkName = "-groupDidUpdateComplete:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DKImagePickerControllerDemo_OC/Source/DKImagePickerController/View/DKAssetGroupDetailVC.m"
-            timestampString = "521444260.656037"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "373"
-            endingLineNumber = "373"
-            landmarkName = "-groupDidUpdate:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DKImagePickerControllerDemo_OC/Source/DKImagePickerController/View/DKAssetGroupDetailVC.m"
-            timestampString = "521444261.818202"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "380"
-            endingLineNumber = "380"
-            landmarkName = "-group:didRemoveAssets:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "DKImagePickerControllerDemo_OC/Source/DKCamera/DKCamera.h"
             timestampString = "521444749.086699"
             startingColumnNumber = "9223372036854775807"
@@ -134,7 +86,7 @@
                   moduleName = "DKImagePickerControllerDemo_OC"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zm/xProject/DKImagePickerControllerDemo_OC/DKImagePickerControllerDemo_OC/Source/DKCamera/DKCamera.h"
-                  timestampString = "521628867.708887"
+                  timestampString = "521709683.19322"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "38"
@@ -149,12 +101,12 @@
                   moduleName = "DKImagePickerControllerDemo_OC"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zm/xProject/DKImagePickerControllerDemo_OC/DKImagePickerControllerDemo_OC/Source/DKCamera/DKCamera.h"
-                  timestampString = "521628867.711529"
+                  timestampString = "521709683.194693"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "38"
                   endingLineNumber = "38"
-                  offsetFromSymbolStart = "20">
+                  offsetFromSymbolStart = "32">
                </Location>
             </Locations>
          </BreakpointContent>

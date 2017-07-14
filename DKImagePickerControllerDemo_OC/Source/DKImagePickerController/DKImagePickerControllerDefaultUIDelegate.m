@@ -105,12 +105,6 @@
 - (Class)imagePickerControllerCollectionVideoCell{
     return [DKAssetGroupDetailVideoCell class];
 }
-//- (DKAssetGroupDetailBaseCell *)imagePickerControllerCollectionImageCellForCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath{
-//    DKAssetGroupDetailBaseCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:[DKAssetGroupDetailImageCell cellReuseIdentifier] forIndexPath:indexPath];
-////    if (!cell) {
-////        <#statements#>
-////    }
-//}
 
 @end
 

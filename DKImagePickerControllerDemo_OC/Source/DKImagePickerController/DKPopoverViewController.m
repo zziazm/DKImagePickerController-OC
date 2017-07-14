@@ -27,6 +27,12 @@
     return self;
 }
 
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    self.arrowImageView.frame = CGRectMake((self.bounds.size.width - self.arrowWidth) / 2, 0, _arrowWidth, _arrowHeight);
+    self.contentView.frame = CGRectMake(0, self.arrowHeight, self.bounds.size.width, self.bounds.size.height - _arrowHeight);
+}
+
 - (UIImage *)arrowImage{
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(_arrowWidth, _arrowHeight), NO, [UIScreen mainScreen].scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -66,25 +72,7 @@
     
 }
 
-- (void)layoutSubviews{
-    [super layoutSubviews];
-    self.arrowImageView.frame = CGRectMake((self.bounds.size.width - self.arrowWidth) / 2, 0, _arrowWidth, _arrowHeight);
-    self.contentView.frame = CGRectMake(0, self.arrowHeight, self.bounds.size.width, self.bounds.size.height - _arrowHeight);
-}
-
-
-
-
-
-
-
-
 @end
-
-
-
-
-
 
 @interface DKPopoverViewController ()
 @property (nonatomic, strong) UIViewController * contentViewController;
@@ -127,16 +115,12 @@
     backgroundView.autoresizingMask = self.view.autoresizingMask;
     self.view = backgroundView;
 }
-- (void)dismiss{
-    [UIView animateWithDuration:0.2 animations:^{
-        CGAffineTransform form = CGAffineTransformTranslate(self.popoverView.transform, 0, -(self.popoverView.bounds.size.height/2));
-        self.popoverView.transform = CGAffineTransformScale(form, 0.01, 0.01);
-        
-    } completion:^(BOOL finished) {
-        [self.view removeFromSuperview];
-        [self removeFromParentViewController];
-    }];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.view addSubview:self.popoverView];
+    // Do any additional setup after loading the view.
 }
+
 - (void)showInView:(UIView *)view{
     [view addSubview:self.view];
     self.popoverView.contentView = self.contentViewController.view;
@@ -149,6 +133,18 @@
         self.view.backgroundColor = [UIColor colorWithWhite:0.4 alpha:0.4];
     } completion:^(BOOL finished) {
         
+    }];
+}
+
+
+- (void)dismiss{
+    [UIView animateWithDuration:0.2 animations:^{
+        CGAffineTransform form = CGAffineTransformTranslate(self.popoverView.transform, 0, -(self.popoverView.bounds.size.height/2));
+        self.popoverView.transform = CGAffineTransformScale(form, 0.01, 0.01);
+        
+    } completion:^(BOOL finished) {
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
     }];
 }
 
@@ -167,11 +163,7 @@
     return CGRectMake((self.view.bounds.size.width - popoverWidth)/2, popoverY, popoverWidth, popoverHeight);
     
 }
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self.view addSubview:self.popoverView];
-    // Do any additional setup after loading the view.
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

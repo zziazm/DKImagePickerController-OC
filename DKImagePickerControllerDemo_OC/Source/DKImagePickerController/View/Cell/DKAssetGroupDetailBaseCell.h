@@ -9,15 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "DKAsset.h"
 
-//@protocol DKAssetGroupCellItemProtocol <NSObject>
-//@property (nonatomic, weak) DKAsset * asset;
-//@property (nonatomic, assign) NSInteger index;
-//@property (nonatomic, strong) UIImage * thumbnailImage;
-//
-//
-//@end
-
-
 @interface DKAssetGroupDetailBaseCell : UICollectionViewCell
 
 @property (nonatomic, weak) DKAsset * asset;

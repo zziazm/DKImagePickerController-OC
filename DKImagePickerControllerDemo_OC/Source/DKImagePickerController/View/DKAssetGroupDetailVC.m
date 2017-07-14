@@ -57,7 +57,7 @@
 @property (nonatomic, assign) CGSize currentViewSize;
 @property (nonatomic, strong) NSMutableSet * registeredCellIdentifiers;
 @property (nonatomic, assign) CGSize thumbnailSize;
-@property (nonatomic, assign) CGRect previousPreheatRect;
+//@property (nonatomic, assign) CGRect previousPreheatRect;
 @property (nonatomic, strong) DKAssetGroupListVC * groupListVC;
 @end
 
@@ -68,7 +68,7 @@
         _hidesCamera = NO;
         _thumbnailSize = CGSizeZero;
         _registeredCellIdentifiers = [NSMutableSet new];
-        _previousPreheatRect = CGRectZero;
+//        _previousPreheatRect = CGRectZero;
         
     }
     return self;
@@ -85,16 +85,6 @@
     
 }
 
-- (void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    if (self.footerView) {
-        self.footerView.frame = CGRectMake(0, self.view.bounds.size.height - self.footerView.bounds.size.height, self.view.bounds.size.width, self.footerView.bounds.size.height);
-        
-        self.collectionView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.footerView.bounds.size.height);
-    }else{
-        self.collectionView.frame = self.view.bounds;
-    }
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     UICollectionViewLayout * layout = [self.imagePickerController.UIDelegate layoutForImagePickerController:self.imagePickerController];
@@ -113,6 +103,71 @@
     [self checkPhotoPermission];
     // Do any additional setup after loading the view.
 }
+
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    if (self.footerView) {
+        self.footerView.frame = CGRectMake(0, self.view.bounds.size.height - self.footerView.bounds.size.height, self.view.bounds.size.width, self.footerView.bounds.size.height);
+        
+        self.collectionView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.footerView.bounds.size.height);
+    }else{
+        self.collectionView.frame = self.view.bounds;
+    }
+}
+- (void)viewDidAppear:(BOOL)animated  {
+    [super viewDidAppear:animated];
+//    [self updateCachedAssets];
+}
+//- (void)updateCachedAssets{
+//    if (self.isViewLoaded && self.view.window != nil && self.selectedGroupId != nil) {
+//        CGRect preheatRect = CGRectInset(self.view.bounds, 0, -0.5 * self.view.bounds.size.height);
+//        int delta = fabs(CGRectGetMidY(preheatRect) - CGRectGetMidY(self.previousPreheatRect));
+//        if (delta > self.view.bounds.size.height / 3) {
+//            DKAssetGroup * group = [[[DKImageManager shareInstance] groupDataManager] fetchGroupWithGroupId:self.selectedGroupId];
+//            
+//            CGRect addedRects = [self addedRectDifferencesBetweenRects:self.previousPreheatRect new:preheatRect];
+//            CGRect removedRects = [self removedRectDifferencesBetweenRects:self.previousPreheatRect new:preheatRect];
+//            NSMutableArray * addedAssets = @[].mutableCopy;
+//            for (<#type *object#> in <#collection#>) {
+//                <#statements#>
+//            }
+//            self.collectionView indexPathsForElementsInRect:<#(CGRect)#> hidesCamera:<#(BOOL)#>
+//        }
+//    }
+//}
+//
+//- (CGRect)addedRectDifferencesBetweenRects:(CGRect)old
+//                                       new:(CGRect)new{
+//    if (CGRectIntersectsRect(old, new)) {
+//        CGRect added = CGRectZero;
+//        if (CGRectGetMaxY(new) > CGRectGetMaxY(old)) {
+//            added = CGRectMake(added.origin.x + new.origin.x, added.origin.y + CGRectGetMaxY(old), added.size.width + new.size.width,added.size.height + (CGRectGetMaxY(new) - CGRectGetMaxY(old)));
+//        }
+//        
+//        if (CGRectGetMinY(old) > CGRectGetMinY(new)) {
+//            added = CGRectMake(added.origin.x + new.origin.x, added.origin.y + CGRectGetMinY(new), added.size.width + new.size.width,added.size.height + (CGRectGetMaxY(old) - CGRectGetMinY(new)));
+//        }
+//        return added;
+//    }else{
+//        return new;
+//    }
+//}
+//- (CGRect)removedRectDifferencesBetweenRects:(CGRect)old
+//                                       new:(CGRect)new{
+//    if (CGRectIntersectsRect(old, new)) {
+//        CGRect removed = CGRectZero;
+//        if (CGRectGetMaxY(new) < CGRectGetMaxY(old)) {
+//            removed = CGRectMake(removed.origin.x + new.origin.x, removed.origin.y + CGRectGetMaxY(new), removed.size.width + new.size.width,removed.size.height + (CGRectGetMaxY(old) - CGRectGetMaxY(new)));
+//        }
+//        
+//        if (CGRectGetMinY(old) < CGRectGetMinY(new)) {
+//            removed = CGRectMake(removed.origin.x + new.origin.x, removed.origin.y + CGRectGetMinY(old), removed.size.width + new.size.width,removed.size.height + (CGRectGetMinY(new) - CGRectGetMaxY(old)));
+//        }
+//        return removed;
+//    }else{
+//        return old;
+//    }
+//}
 
 - (UIButton *)selectGroupButton{
     if (!_selectGroupButton) {
@@ -248,7 +303,7 @@
 }
 - (void)resetCachedAssets{
     [[DKImageManager shareInstance] stopCachingForAllAssets];
-    self.previousPreheatRect = CGRectZero;
+//    self.previousPreheatRect = CGRectZero;
 }
 - (void)setupAssetCell:(DKAssetGroupDetailBaseCell *)cell
              indexPath:(NSIndexPath *)indexPath

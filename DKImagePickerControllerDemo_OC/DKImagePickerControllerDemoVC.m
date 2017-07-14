@@ -123,6 +123,7 @@
     if ([segue.identifier isEqualToString:@"Single Select"]) {
         DKImagePickerController * pc  = [DKImagePickerController new];
         pc.singleSelect = YES;
+        pc.autoCloseOnSingleSelect = YES;
         vc.pickerController = pc;
 
     }
