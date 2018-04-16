@@ -45,7 +45,6 @@
 
 - (void)fetchGroupsWithCompleteBlock:(void(^)(NSArray <NSString *> * groupIds, NSError * error))completeBlock{
     if (self.assetGroupTypes) {
-        
         __weak typeof(self) weakSelf = self;
        dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
        dispatch_async(queue, ^{
@@ -55,7 +54,6 @@
                    completeBlock(strongSelf.groupIds, nil);
                });
            }
-           
            NSMutableDictionary <NSString *, DKAssetGroup *>* groups = @{}.mutableCopy;
            NSMutableArray <NSString *> * groupIds = @[].mutableCopy;
            [self.assetGroupTypes enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -69,15 +67,11 @@
                        groups[assetGroup.groupId] = assetGroup;
                        [groupIds addObject:assetGroup.groupId];
                    }
-                   
                }];
-               
            }];
-           
            [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:strongSelf];
            [strongSelf updatePartial:groups groupIds:groupIds completeBlock:completeBlock];
        });
-        
     }
 }
 
@@ -149,13 +143,14 @@
     }
     return asset;
 }
+
 - (PHAsset *)fetchOriginalAsset:(DKAssetGroup *)group
                           index:(NSInteger)index{
     
     return group.fetchResult[group.totalCount - index - 1];
 }
-#pragma mark -- PHPhotoLibraryChangeObserver
 
+#pragma mark -- PHPhotoLibraryChangeObserver
 - (void)photoLibraryDidChange:(PHChange *)changeInstance{
     for (DKAssetGroup * group in self.groups.allValues) {
        
@@ -166,7 +161,6 @@
                 [self notifyObserversWithSelector:@selector(groupDidRemove:) object:group.groupId];
                 continue;
             }
-            
             if ([changeDetails.objectAfterChanges isKindOfClass:[PHAssetCollection class]]) {
                 PHAssetCollection * objectAfterChanges = changeDetails.objectAfterChanges;
                 [self updateGroup:self.groups[group.groupId] collection:objectAfterChanges];
@@ -186,10 +180,7 @@
             }
             
             [self updateGroup:group fetchResult:changeDetails.fetchResultAfterChanges];
-            
- 
             NSMutableArray * insertedAssets = @[].mutableCopy;
-            
             [changeDetails.insertedObjects enumerateObjectsUsingBlock:^(PHAsset *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [insertedAssets addObject: [[DKAsset alloc] initWithOriginalAsset:obj]];
             }];
