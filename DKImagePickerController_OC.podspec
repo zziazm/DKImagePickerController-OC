@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/zziazm/DKImagePickerController-OC.git"}
+  s.source       = { :git => "https://github.com/zziazm/DKImagePickerController-OC.git", :tag => "v1.0" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
